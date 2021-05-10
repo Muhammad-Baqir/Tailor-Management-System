@@ -1,5 +1,4 @@
-us
-        package com.example.tailormanagementsystem;
+package com.example.tailormanagementsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
 
