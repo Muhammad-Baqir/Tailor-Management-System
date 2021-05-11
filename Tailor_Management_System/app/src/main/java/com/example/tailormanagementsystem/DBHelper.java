@@ -7,26 +7,67 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import java.util.ArrayList;
+
 public class DBHelper extends SQLiteOpenHelper {
-    public static final String CUSTOMER_NAME = "CustomerName";
-    public static final String CUSTOMER_AGE = "CustomerAge";
-    public static final String ACTIVE_CUSTOMER = "ActiveCustomer";
-    public static final String CUSTOMER_ID = "CustomerID";
-    public static final String CUST_TABLE = "customer";
+    Context myContext = null;
+
 
     public DBHelper(@Nullable Context context) {
-        super(context, "MyDB.db", null, 1);
+        super(context, "Main.db", null, 1);
+
+        myContext = context;
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        //String createTableSTatementOne = "CREATE TABLE CustTable(CustomerID Integer PRIMARY KEY AUTOINCREMENT, " + CUSTOMER_NAME_FIRST + " Text, CustomerAge Int, ActiveCustomer BOOL) ";
-        String createTableStatement = "CREATE TABLE Customer ( Id Integer PRIMARY KEY AUTOINCREMENT, Name Text,  Int, " + ACTIVE_CUSTOMER + " BOOL) ";
-        db.execSQL(createTableStatement);
+        // CustomerTable
+        String customerQuery = "CREATE TABLE CustomerTable (Id Integer PRIMARY KEY AUTOINCREMENT, Name Text, PhoneNumber Text, Gender Text, Address Text, Email Text, RelatedCustomerID Integer)";
+        db.execSQL(customerQuery);
+
+        // OrderTable
+        String orderQuery = "CREATE TABLE OrderTable (Id Integer PRIMARY KEY AUTOINCREMENT, CustomerID Integer, OrderDate Date, Deadline Date, Status Text, TotalAmount Integer, RemaininAmount Integer)";
+        db.execSQL(orderQuery);
+
+        // OrderItemTable
+        String orderItemTable = "CREATE TABLE OrderItemTable (OrderID Integer, ItemID Integer, Quantity Integer)";
+        db.execSQL(orderItemTable);
+
+        // ItemTable
+        String itemSql = "CREATE TABLE ItemTable (Id Integer PRIMARY KEY AUTOINCREMENT, Name String, Price Integer)";
+        db.execSQL(itemSql);
+
+        // ReceiptTable
+        String receiptSql = "CREATE TABLE ReceiptTable (Id Integer PRIMARY KEY AUTOINCREMENT, CustomerID Integer, OrderID Integer, PaymentDate Date, Amount Integer)";
+        db.execSQL(receiptSql);
+
+        // CustomerMeasurementsTable
+        MeasurementsDB measurementsDB = new MeasurementsDB(myContext);
+        ArrayList<TailorMeasurements> tailorMeasurements = measurementsDB.getAllMeasurements();
+        String customerMeasurementsSql = "CREATE TABLE CustomerMeasurementsTable (Id Integer PRIMARY KEY AUTOINCREMENT, CustomerID Integer";
+
+        for(int i =  0; i < tailorMeasurements.size(); ++i) {
+            TailorMeasurements tailorMeasurements1 = tailorMeasurements.get(i);
+
+            customerMeasurementsSql += ", " + tailorMeasurements1.getName() + " ";
+
+            if(tailorMeasurements1.getType() == "Numeric") {
+                customerMeasurementsSql += "Integer";
+            } else {
+                customerMeasurementsSql += "Text";
+            }
+        }
+
+        customerMeasurementsSql += ")";
+        db.execSQL(customerMeasurementsSql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+
+    }
+
+    public void ABC() {
 
     }
 
