@@ -29,7 +29,7 @@ public class MeasurementsDB extends SQLiteOpenHelper {
 
     }
 
-    public boolean addMeasurement(TailorMeasurements tailorMeasurements) {
+    public boolean addTailorMeasurements(TailorMeasurements tailorMeasurements) {
         SQLiteDatabase db = this.getWritableDatabase();
         //Hash map, as we did in bundles
         ContentValues cv = new ContentValues();
@@ -43,7 +43,7 @@ public class MeasurementsDB extends SQLiteOpenHelper {
         else{return true;}
     }
 
-    public ArrayList<TailorMeasurements> getAllMeasurements() {
+    public ArrayList<TailorMeasurements> getAllTailorMeasurements() {
         ArrayList<TailorMeasurements> tailorMeasurements = new ArrayList<TailorMeasurements>();
 
         SQLiteDatabase db = this.getReadableDatabase();

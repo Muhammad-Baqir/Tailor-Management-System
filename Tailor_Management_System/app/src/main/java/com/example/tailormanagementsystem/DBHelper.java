@@ -67,9 +67,5 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public void ABC() {
-
-    }
-
 
 }

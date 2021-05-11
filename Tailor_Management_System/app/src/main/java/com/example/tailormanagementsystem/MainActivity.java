@@ -18,6 +18,5 @@ public class MainActivity extends AppCompatActivity {
 
 
         DBHelper dbHelper = new DBHelper(this);
-        dbHelper.ABC();
     }
 }
