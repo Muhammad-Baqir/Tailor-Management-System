@@ -88,6 +88,9 @@ public class DBHelper extends SQLiteOpenHelper {
 
             }while(cursor.moveToNext());
         }
+
+
+        return new ArrayList<String>();
     }
 
 

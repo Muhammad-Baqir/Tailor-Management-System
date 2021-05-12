@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">Tailor Management System</string>
+    <string name="AddNewOrderButtonText">Add New Order</string>
+    <string name="AllCustomersButtonText">All Customers</string>
+    <string name="OrderManagementButtonText">Order Management</string>
+    <string name="OrderSummaryButtonText">Order Summary</string>
+    <string name="AboutUsButtonText">About Us</string>
+    <string name="CustomerRegButtonText">Customer Registration</string>
 </resources>
