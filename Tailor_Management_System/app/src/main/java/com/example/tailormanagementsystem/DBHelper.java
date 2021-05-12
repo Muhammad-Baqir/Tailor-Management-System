@@ -2,6 +2,7 @@ package com.example.tailormanagementsystem;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
@@ -43,7 +44,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // CustomerMeasurementsTable
         MeasurementsDB measurementsDB = new MeasurementsDB(myContext);
-        ArrayList<TailorMeasurements> tailorMeasurements = measurementsDB.getAllMeasurements();
+        ArrayList<TailorMeasurements> tailorMeasurements = measurementsDB.getAllTailorMeasurements();
         String customerMeasurementsSql = "CREATE TABLE CustomerMeasurementsTable (Id Integer PRIMARY KEY AUTOINCREMENT, CustomerID Integer";
 
         for(int i =  0; i < tailorMeasurements.size(); ++i) {
@@ -64,7 +65,29 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        // CustomerMeasurementsTable
+        MeasurementsDB measurementsDB = new MeasurementsDB(myContext);
+        ArrayList<TailorMeasurements> tailorMeasurements = measurementsDB.getAllTailorMeasurements();
 
+
+        String customerMeasurementsSql = "ALTER TABLE CustomerMeasurementsTable ";
+
+
+    }
+
+
+    public ArrayList<String> getAllColumns() {
+        SQLiteDatabase db = getReadableDatabase();
+
+        String query = "PRAGMA table_info(CustomerMeasurementsTable)";
+        Cursor cursor = db.rawQuery(query, null);
+
+        if(cursor.moveToFirst()) {
+            do {
+                
+
+            }while(cursor.moveToNext());
+        }
     }
 
 
