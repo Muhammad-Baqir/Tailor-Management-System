@@ -27,7 +27,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(customerQuery);
 
         // OrderTable
-        String orderQuery = "CREATE TABLE OrderTable (Id Integer PRIMARY KEY AUTOINCREMENT, CustomerID Integer, OrderDate Date, Deadline Date, Status Text, TotalAmount Integer, RemaininAmount Integer)";
+        String orderQuery = "CREATE TABLE OrderTable (Id Integer PRIMARY KEY AUTOINCREMENT, CustomerID Integer, OrderDate Date, Deadline Date, Status Text, TotalAmount Integer, RemainingAmount Integer)";
         db.execSQL(orderQuery);
 
         // OrderItemTable
@@ -39,7 +39,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(itemSql);
 
         // ReceiptTable
-        String receiptSql = "CREATE TABLE ReceiptTable (Id Integer PRIMARY KEY AUTOINCREMENT, CustomerID Integer, OrderID Integer, PaymentDate Date, Amount Integer)";
+        String receiptSql = "CREATE TABLE ReceiptTable (Id Integer PRIMARY KEY AUTOINCREMENT,OrderID Integer, PaymentDate Date, Amount Integer)";
         db.execSQL(receiptSql);
 
         // CustomerMeasurementsTable
