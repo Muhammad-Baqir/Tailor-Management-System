@@ -5,19 +5,16 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Pair;
 
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
 
 public class DBHelper extends SQLiteOpenHelper {
-    Context myContext = null;
-
 
     public DBHelper(@Nullable Context context) {
         super(context, "Main.db", null, 1);
-
-        myContext = context;
     }
 
     @Override
@@ -43,55 +40,43 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(receiptSql);
 
         // CustomerMeasurementsTable
-        MeasurementsDB measurementsDB = new MeasurementsDB(myContext);
-        ArrayList<TailorMeasurements> tailorMeasurements = measurementsDB.getAllTailorMeasurements();
-        String customerMeasurementsSql = "CREATE TABLE CustomerMeasurementsTable (Id Integer PRIMARY KEY AUTOINCREMENT, CustomerID Integer";
-
-        for(int i =  0; i < tailorMeasurements.size(); ++i) {
-            TailorMeasurements tailorMeasurements1 = tailorMeasurements.get(i);
-
-            customerMeasurementsSql += ", " + tailorMeasurements1.getName() + " ";
-
-            if(tailorMeasurements1.getType() == "Numeric") {
-                customerMeasurementsSql += "Integer";
-            } else {
-                customerMeasurementsSql += "Text";
-            }
-        }
-
-        customerMeasurementsSql += ")";
+        String customerMeasurementsSql = "CREATE TABLE CustomerMeasurementsTable (Id Integer PRIMARY KEY AUTOINCREMENT, CustomerID Integer)";
         db.execSQL(customerMeasurementsSql);
+
+        // CheckBoxTable
+        String checkBoxSql = "CREATE TABLE CheckBoxTable (Id Integer PRIMARY KEY AUTOINCREMENT, MeasurementName Text, CheckBoxNames Text)";
+        db.execSQL(checkBoxSql);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // CustomerMeasurementsTable
-        MeasurementsDB measurementsDB = new MeasurementsDB(myContext);
-        ArrayList<TailorMeasurements> tailorMeasurements = measurementsDB.getAllTailorMeasurements();
+    }
 
+    public void dropColumnFromCustomerMeasurements(String columnName) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("ALTER TABLE CustomerMeasurementsTable DROP COLUMN " + columnName);
+    }
 
-        String customerMeasurementsSql = "ALTER TABLE CustomerMeasurementsTable ";
-
-
+    public void addColumnInCustomerMeasurements(String columnName, String columnType) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL("ALTER TABLE CustomerMeasurementsTable ADD COLUMN " + columnName + " " + columnType);
     }
 
 
-    public ArrayList<String> getAllColumns() {
-        SQLiteDatabase db = getReadableDatabase();
+    public ArrayList<Pair<String, String>> getColumns() {
+        ArrayList<Pair<String, String>> columns = new ArrayList<Pair<String, String>>();
 
-        String query = "PRAGMA table_info(CustomerMeasurementsTable)";
-        Cursor cursor = db.rawQuery(query, null);
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("PRAGMA table_info(CustomerMeasurementsTable)", null);
 
         if(cursor.moveToFirst()) {
             do {
-                
-
-            }while(cursor.moveToNext());
+                columns.add(new Pair<String, String>(cursor.getString(1), cursor.getString(2)));
+            }while (cursor.moveToNext());
         }
 
-
-        return new ArrayList<String>();
+        return columns;
     }
-
 
 }
