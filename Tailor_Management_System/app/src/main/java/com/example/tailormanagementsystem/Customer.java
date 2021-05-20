@@ -2,13 +2,9 @@ package com.example.tailormanagementsystem;
 
 import android.content.ContentValues;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 
-import java.util.ArrayList;
-
-public class Customer {
+public class Customer extends Table {
     static public final String TABLE_NAME = "CustomerTable";
-    static public final String ID = "Id";
     static public final String NAME = "Name";
     static public final String PHONE_NUMBER = "PhoneNumber";
     static public final String GENDER = "Gender";
@@ -16,7 +12,6 @@ public class Customer {
     static public final String EMAIL = "Email";
     static public final String RELATED_CUSTOMER_ID = "RelatedCustomerId";
 
-    Integer Id;
     String Name;
     String PhoneNumber;
     String Gender;
@@ -90,42 +85,18 @@ public class Customer {
         RelatedCustomerId = relatedCustomerId;
     }
 
-    // DBase Methods
-
-    static public ArrayList<Customer> getAll(SQLiteDatabase db) {
-        ArrayList<Customer> result = new ArrayList<>();
-
-        Cursor cursor = db.rawQuery(String.format("SELECT * FROM %s", TABLE_NAME), null);
-
-        if(cursor.moveToFirst()) {
-            do {
-                result.add(new Customer(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getInt(6)));
-            }while (cursor.moveToNext());
-        }
-
-        return result;
+    static public Table newObject(Cursor cursor) {
+        return new Customer(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getInt(6));
     }
 
-    static public boolean add(SQLiteDatabase db, Customer customer) {
-        return db.insert(TABLE_NAME, null, getContentValues(customer)) != -1;
-    }
-
-    static public boolean update(SQLiteDatabase db, Customer customer) {
-        return  db.update(TABLE_NAME, getContentValues(customer), "Id = ?", new String[]{Integer.toString(customer.Id)}) != -1;
-    }
-
-    static public boolean delete(SQLiteDatabase db, int id) {
-        return db.delete(TABLE_NAME, "Id = ?", new String[]{Integer.toString(id)}) != -1;
-    }
-
-    static ContentValues getContentValues(Customer customer) {
+    static public ContentValues getContentValues(Customer customer) {
         ContentValues cv = new ContentValues();
 
         cv.put(NAME, customer.Name);
-        cv.put(PHONE_NUMBER, customer.PhoneNumber);
-        cv.put(GENDER, customer.Gender);
-        cv.put(ADDRESS, customer.Address);
         cv.put(EMAIL, customer.Email);
+        cv.put(ADDRESS, customer.Address);
+        cv.put(GENDER, customer.Gender);
+        cv.put(PHONE_NUMBER, customer.PhoneNumber);
         cv.put(RELATED_CUSTOMER_ID, customer.RelatedCustomerId);
 
         return cv;
