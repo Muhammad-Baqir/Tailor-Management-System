@@ -4,6 +4,8 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
@@ -12,27 +14,26 @@ public class QueryHandler {
 
     static public <T extends Table> T get(Class<T> c, SQLiteDatabase db, int id) throws InstantiationException, IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
         T result = c.newInstance();
-        String TABLE_NAME = (String) c.getDeclaredField("TABLE_NAME").get(null);
+        String[] COLUMNS_NAME = (String[]) c.getDeclaredField("COLUMNS_NAME").get(null);
 
-        Cursor cursor = db.rawQuery(String.format("SELECT * FROM %s WHERE Id = ?", TABLE_NAME), new String[]{Integer.toString(id)});
+        Cursor cursor = db.rawQuery(String.format("SELECT * FROM %s WHERE Id = ?", COLUMNS_NAME[0]), new String[]{Integer.toString(id)});
 
         if(cursor.moveToNext()) {
-            result = (T) c.getMethod("newObject", Cursor.class).invoke(null, cursor);
+            result =  c.getConstructor(new Class[]{Cursor.class}).newInstance(cursor);
         }
 
         return result;
     }
 
-    static public <T extends Table> ArrayList<T> getAll(Class<T> c, SQLiteDatabase db) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
+    static public <T extends Table> ArrayList<T> getAll(Class<T> c, SQLiteDatabase db) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException, InstantiationException {
         ArrayList<T> result = new ArrayList<>();
-        String TABLE_NAME = (String) c.getDeclaredField("TABLE_NAME").get(null);
+        String[] COLUMNS_NAME = (String[]) c.getDeclaredField("COLUMNS_NAME").get(null);
 
-        Cursor cursor = db.rawQuery(String.format("SELECT * FROM %s", TABLE_NAME), null);
+        Cursor cursor = db.rawQuery(String.format("SELECT * FROM %s", COLUMNS_NAME[0]), null);
 
         if(cursor.moveToFirst()) {
             do {
-                Method method = c.getDeclaredMethod("newObject", Cursor.class);
-                result.add((T) method.invoke(null, cursor));
+                result.add(c.getConstructor(new Class[]{Cursor.class}).newInstance(cursor));
             }while (cursor.moveToNext());
         }
         return result;
@@ -40,25 +41,37 @@ public class QueryHandler {
 
     static public <T extends Table> boolean add(SQLiteDatabase db, T item) throws NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class c = item.getClass();
-        Method getContentValues = c.getDeclaredMethod("getContentValues", c);
-        ContentValues cv = (ContentValues) getContentValues.invoke(null, item);
-        String TABLE_NAME = (String) c.getDeclaredField("TABLE_NAME").get(null);
+        ContentValues cv = getContentValues(item);
+        String[] COLUMNS_NAME = (String[]) c.getDeclaredField("COLUMNS_NAME").get(null);
 
-        return db.insert(TABLE_NAME, null, cv) != -1;
+        return db.insert(COLUMNS_NAME[0], null, cv) != -1;
     }
 
     static public <T extends Table> boolean update(SQLiteDatabase db, T item) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {
         Class c = item.getClass();
-        Method getContentValues = c.getDeclaredMethod("getContentValues", c);
-        ContentValues cv = (ContentValues) getContentValues.invoke(null, item);
-        String TABLE_NAME = (String) c.getDeclaredField("TABLE_NAME").get(null);
+        ContentValues cv = getContentValues(item);
+        String[] COLUMNS_NAME = (String[]) c.getDeclaredField("COLUMNS_NAME").get(null);
 
-        return  db.update(TABLE_NAME, cv, "Id = ?", new String[]{Integer.toString(item.getId())}) != -1;
+        return  db.update(COLUMNS_NAME[0], cv, "Id = ?", new String[]{Integer.toString(item.getId())}) != -1;
     }
 
     static public <T extends Table> boolean delete(Class<T> c, SQLiteDatabase db, int id) throws NoSuchFieldException, IllegalAccessException {
-        String TABLE_NAME = (String) c.getDeclaredField("TABLE_NAME").get(null);
-        return db.delete(TABLE_NAME, "Id = ?", new String[]{Integer.toString(id)}) != -1;
+        String[] COLUMNS_NAME = (String[]) c.getDeclaredField("COLUMNS_NAME").get(null);
+        return db.delete(COLUMNS_NAME[0], "Id = ?", new String[]{Integer.toString(id)}) != -1;
+    }
+
+
+    static <T> ContentValues getContentValues(T item) throws IllegalAccessException, NoSuchFieldException {
+        ContentValues cv = new ContentValues();
+        Class c = item.getClass();
+        Field[] fields = c.getDeclaredFields();
+        String[] COLUMNS_NAME = (String[]) c.getDeclaredField("COLUMNS_NAME").get(null);
+
+        for(int i = 0; i < fields.length - 1; ++i) {
+            cv.put(COLUMNS_NAME[i + 2], fields[i].get(item).toString());
+        }
+
+        return cv;
     }
 
 }

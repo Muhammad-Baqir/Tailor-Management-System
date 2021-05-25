@@ -1,70 +1,87 @@
 package com.example.tailormanagementsystem;
+import android.database.Cursor;
+
 import java.util.Date;
 
-public class Order {
+public class Order extends Table {
+    static public final String[] COLUMNS_NAME = new String[] {"OrderTable", "Id", "CustomerId", "TotalAmount", "RemainingAmount", "OrderDate", "Deadline", "Status"};
 
-    int Id;
-    int CustomerID;
-    int TotalAmount;
-    int RemainingAmount;
-    Date OrderDate;
-    Date Deadline;
+    Integer CustomerID;
+    Integer TotalAmount;
+    Integer RemainingAmount;
+    String OrderDate;
+    String Deadline;
     String Status;
 
-    public Order(int id,int customerID,Date orderDate,Date deadline,int totalAmount,int remainingAmount,String status) {
+    public Order(Integer id, Integer customerID, Integer totalAmount, Integer remainingAmount, String orderDate, String deadline, String status) {
         Id = id;
-        CustomerID=customerID;
-        OrderDate=orderDate;
-        Deadline=deadline;
-        TotalAmount=totalAmount;
-        RemainingAmount=remainingAmount;
-        Status=status;
+        CustomerID = customerID;
+        TotalAmount = totalAmount;
+        RemainingAmount = remainingAmount;
+        OrderDate = orderDate;
+        Deadline = deadline;
+        Status = status;
     }
 
-    public int getId() {
-        return Id;
+    public Order(Cursor cursor) {
+        Id = cursor.getInt(0);
+        CustomerID = cursor.getInt(1);
+        TotalAmount = cursor.getInt(2);
+        RemainingAmount = cursor.getInt(3);
+        OrderDate = cursor.getString(4);
+        Deadline = cursor.getString(5);
+        Status = cursor.getString(6);
     }
 
-    public void setId(int id) {
-        Id = id;
+    public static String[] getColumnsName() {
+        return COLUMNS_NAME;
     }
-    public int getCustomerID() {
+
+    public Integer getCustomerID() {
         return CustomerID;
     }
 
-    public void setCustomerID(int customerID) {
+    public void setCustomerID(Integer customerID) {
         CustomerID = customerID;
     }
-    public int getTotalAmount() {
+
+    public Integer getTotalAmount() {
         return TotalAmount;
     }
 
-    public void setTotalAmount(int totalAmount) {
+    public void setTotalAmount(Integer totalAmount) {
         TotalAmount = totalAmount;
     }
-    public int getRemainingAmount() {
+
+    public Integer getRemainingAmount() {
         return RemainingAmount;
     }
 
-    public void setRemainingAmount(int remainingAmount) {
+    public void setRemainingAmount(Integer remainingAmount) {
         RemainingAmount = remainingAmount;
     }
-    public Date getOrderDate() {
+
+    public String getOrderDate() {
         return OrderDate;
     }
 
-    public void setOrderDate(Date orderDate) {
+    public void setOrderDate(String orderDate) {
         OrderDate = orderDate;
     }
-    public Date getDeadline() {
+
+    public String getDeadline() {
         return Deadline;
     }
-    public void setDeadline(Date deadline) {
+
+    public void setDeadline(String deadline) {
         Deadline = deadline;
     }
+
     public String getStatus() {
         return Status;
     }
-    public void setStatus(String status) { Status = status; }
 
+    public void setStatus(String status) {
+        Status = status;
+    }
 }

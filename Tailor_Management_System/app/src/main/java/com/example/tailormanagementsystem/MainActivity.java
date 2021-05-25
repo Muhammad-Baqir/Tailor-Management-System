@@ -24,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
         ArrayList<Item> items = null;
         try {
 
-//            QueryHandler.add(db.getWritableDatabase(), new Item(0, "New Item", 10));
-//            QueryHandler.update(db.getWritableDatabase(), new Item(1, "Item Updated", 20));
-//            QueryHandler.delete(Item.class, db.getWritableDatabase(), 1);
-//            QueryHandler.delete(Item.class, db.getWritableDatabase(), 2);
-//            QueryHandler.delete(Item.class, db.getWritableDatabase(), 4);
+//            QueryHandler.add(db.getWritableDatabase(), new Item(0, "New Item 10", 100));
+//            QueryHandler.update(db.getWritableDatabase(), new Item(10, "Item Updated", 20));
+//            QueryHandler.delete(Item.class, db.getWritableDatabase(), 3);
+//            QueryHandler.delete(Item.class, db.getWritableDatabase(), 5);
+//            QueryHandler.delete(Item.class, db.getWritableDatabase(), 6);
 
             items = QueryHandler.getAll(Item.class, db.getWritableDatabase());
 

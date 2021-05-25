@@ -2,34 +2,32 @@ package com.example.tailormanagementsystem;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
+
+import java.lang.reflect.Field;
 
 public class Item extends Table {
-    static public final String TABLE_NAME = "ItemTable";
-    static public final String NAME = "Name";
-    static public final String PRICE = "Price";
+    static public final String[] COLUMNS_NAME = new String[] {"ItemTable", "Id",  "Name", "Price"};
 
     String Name;
     Integer Price;
 
-    public Item(Integer id, String name,Integer price) {
+    public Item(Integer id, String name, Integer price) {
         Id = id;
         Name = name;
         Price=price;
     }
-    public Integer getId() {
-        return Id;
+
+    public Item(Cursor cursor) {
+        Id = cursor.getInt(0);
+        Name = cursor.getString(1);
+        Price = cursor.getInt(2);
     }
 
-    public void setId(Integer id) {
-        Id = id;
-    }
-    public int getPrice() {
-        return Price;
+    public static String[] getColumnsName() {
+        return COLUMNS_NAME;
     }
 
-    public void setPrice(Integer price) {
-        Price = price;
-    }
     public String getName() {
         return Name;
     }
@@ -38,16 +36,11 @@ public class Item extends Table {
         Name = name;
     }
 
-    static public Table newObject(Cursor cursor) {
-        return new Item(cursor.getInt(0), cursor.getString(1), cursor.getInt(2));
+    public Integer getPrice() {
+        return Price;
     }
 
-    static public ContentValues getContentValues(Item item) {
-        ContentValues cv = new ContentValues();
-
-        cv.put(NAME, item.Name);
-        cv.put(PRICE, item.Price);
-
-        return cv;
+    public void setPrice(Integer price) {
+        Price = price;
     }
 }

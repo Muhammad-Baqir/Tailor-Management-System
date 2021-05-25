@@ -20,7 +20,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // CustomerTable
-        String customerQuery = String.format("CREATE TABLE %s (%s Integer PRIMARY KEY AUTOINCREMENT, %s Text, %s Text, %s Text, %s Text, %s Text, %s Integer)", Customer.TABLE_NAME, Customer.ID, Customer.NAME, Customer.PHONE_NUMBER, Customer.GENDER, Customer.ADDRESS, Customer.EMAIL, Customer.RELATED_CUSTOMER_ID);
+        String customerQuery = String.format("CREATE TABLE %s (%s Integer PRIMARY KEY AUTOINCREMENT, %s Text, %s Text, %s Text, %s Text, %s Text, %s Integer)", Customer.COLUMNS_NAME[0], Customer.COLUMNS_NAME[1], Customer.COLUMNS_NAME[2], Customer.COLUMNS_NAME[3], Customer.COLUMNS_NAME[4], Customer.COLUMNS_NAME[5], Customer.COLUMNS_NAME[6], Customer.COLUMNS_NAME[7]);
         db.execSQL(customerQuery);
 
         // OrderTable
