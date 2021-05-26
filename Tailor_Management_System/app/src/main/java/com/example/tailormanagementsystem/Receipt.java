@@ -1,44 +1,55 @@
 package com.example.tailormanagementsystem;
 
+import android.database.Cursor;
+
 import java.util.Date;
 
-public class Receipt {
-    int Id;
-    int OrderID;
-    Date PaymentDate;
-    int Amount;
-    public Receipt(int id, int orderID,Date paymentDate,int amount) {
+public class Receipt extends Table {
+    static public final String[] COLUMNS_NAME = new String[] {"ReceiptTable", "Id", "OrderId", "PaymentDate", "Amount"};
+
+    Integer OrderID;
+    String PaymentDate;
+    Integer Amount;
+
+    public Receipt(Integer id, Integer orderID, String paymentDate, Integer amount) {
         Id = id;
-        OrderID=orderID;
-        PaymentDate=paymentDate;
-        Amount=amount;
-    }
-    public int getId() {
-        return Id;
+        OrderID = orderID;
+        PaymentDate = paymentDate;
+        Amount = amount;
     }
 
-    public void setId(int id) {
-        Id = id;
+    public Receipt(Cursor cursor) {
+        Id = cursor.getInt(0);
+        OrderID = cursor.getInt(1);
+        PaymentDate = cursor.getString(2);
+        Amount = cursor.getInt(3);
     }
-    public int getOrderID() {
+
+    public static String[] getColumnsName() {
+        return COLUMNS_NAME;
+    }
+
+    public Integer getOrderID() {
         return OrderID;
     }
 
-    public void setOrderID(int orderID) {
+    public void setOrderID(Integer orderID) {
         OrderID = orderID;
     }
-    public Date getPaymentDate() {
+
+    public String getPaymentDate() {
         return PaymentDate;
     }
 
-    public void setPaymentDate(Date paymentDate) {
+    public void setPaymentDate(String paymentDate) {
         PaymentDate = paymentDate;
     }
-    public int getAmount() {
+
+    public Integer getAmount() {
         return Amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(Integer amount) {
         Amount = amount;
     }
 }
