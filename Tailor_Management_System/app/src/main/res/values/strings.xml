@@ -6,4 +6,10 @@
     <string name="OrderSummaryButtonText">Order Summary</string>
     <string name="AboutUsButtonText">About Us</string>
     <string name="CustomerRegButtonText">Customer Registration</string>
+    <string name="CustomerRegistrationTitle">Customer Registration</string>
+    <string name="PhoneNumberHint">Phone Number (e.g. 03461232122)</string>
+    <string name="AddressHint">Address</string>
+    <string name="NameHint">Name</string>
+    <string name="RegisterButton">Register</string>
+    <string name="Measurements">Measurements (Inch)</string>
 </resources>

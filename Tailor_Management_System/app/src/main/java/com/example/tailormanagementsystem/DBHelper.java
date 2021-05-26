@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.util.Pair;
 
 import androidx.annotation.Nullable;
@@ -68,6 +69,19 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("ALTER TABLE MeasurementsTable ADD COLUMN " + columnName + " " + columnType);
     }
 
+    public String getCheckBoxName(String measurementName) {
+        String result = "";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT MeasurementsOptions  FROM CheckBoxTable WHERE MeasurementName = ?", new String[]{measurementName});
+
+        if(cursor.moveToFirst()) {
+            result = cursor.getString(0);
+        }
+
+        return result;
+    }
 
     public ArrayList<Pair<String, String>> getMeasurementsTableColumns() {
         ArrayList<Pair<String, String>> columns = new ArrayList<Pair<String, String>>();
