@@ -25,32 +25,39 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(customerQuery);
 
         // OrderTable
-        String orderQuery = "CREATE TABLE OrderTable (Id Integer PRIMARY KEY AUTOINCREMENT, CustomerId Integer, OrderDate Date, Deadline Date, Status Text, TotalAmount Integer, RemainingAmount Integer, FOREIGN KEY (CustomerId) REFERENCES CustomerTable (Id))";
+        //String orderQuery = "CREATE TABLE OrderTable (Id Integer PRIMARY KEY AUTOINCREMENT, CustomerId Integer, TotalAmount Integer, RemainingAmount Integer, OrderDate Date, Deadline Date, Status Text, FOREIGN KEY (CustomerId) REFERENCES CustomerTable (Id))";
+        String orderQuery = String.format("CREATE TABLE %s (%s Integer PRIMARY KEY AUTOINCREMENT, %s Integer, %s Integer, %s Integer,%s Date, %s Date, %s Text, FOREIGN KEY (%s) REFERENCES %s (%s))", Order.COLUMNS_NAME[0], Order.COLUMNS_NAME[1], Order.COLUMNS_NAME[2], Order.COLUMNS_NAME[3], Order.COLUMNS_NAME[4], Order.COLUMNS_NAME[5], Order.COLUMNS_NAME[6], Order.COLUMNS_NAME[7],Order.COLUMNS_NAME[2],Customer.COLUMNS_NAME[0],Customer.COLUMNS_NAME[1]);
         db.execSQL(orderQuery);
 
         // ItemTable
         // e.g ShalwarKameez, Pent Coat etc.
-        String itemSql = "CREATE TABLE ItemTable (Id Integer PRIMARY KEY AUTOINCREMENT, Name String, Price Integer)";
+        //String itemSql = "CREATE TABLE ItemTable (Id Integer PRIMARY KEY AUTOINCREMENT, Name String, Price Integer)";
+        String itemSql = String.format("CREATE TABLE %s (%s Integer PRIMARY KEY AUTOINCREMENT, %s Text, %s Integer)", Item.COLUMNS_NAME[0], Item.COLUMNS_NAME[1], Item.COLUMNS_NAME[2], Item.COLUMNS_NAME[3]);
         db.execSQL(itemSql);
 
         // OrderItemTable
-        String orderItemTable = "CREATE TABLE OrderItemTable (OrderId Integer, ItemId Integer, Quantity Integer, FOREIGN KEY (OrderId) REFERENCES OrderTable (Id), FOREIGN KEY (ItemId) REFERENCES ItemTable (Id))";
+        //String orderItemTable = "CREATE TABLE OrderItemTable (OrderId Integer, ItemId Integer, Quantity Integer, FOREIGN KEY (OrderId) REFERENCES OrderTable (Id), FOREIGN KEY (ItemId) REFERENCES ItemTable (Id))";
+        String orderItemTable = String.format("CREATE TABLE %s (%s Integer, %s Integer, %s Integer, FOREIGN KEY (%s) REFERENCES %s (%s),FOREIGN KEY (%s) REFERENCES %s (%s))", OrderItem.COLUMNS_NAME[0], OrderItem.COLUMNS_NAME[2], OrderItem.COLUMNS_NAME[3], OrderItem.COLUMNS_NAME[4], OrderItem.COLUMNS_NAME[2],Order.COLUMNS_NAME[0],Order.COLUMNS_NAME[1],OrderItem.COLUMNS_NAME[3],Item.COLUMNS_NAME[0], Item.COLUMNS_NAME[1]);
         db.execSQL(orderItemTable);
 
         // ReceiptTable
-        String receiptSql = "CREATE TABLE ReceiptTable (Id Integer PRIMARY KEY AUTOINCREMENT,OrderId Integer, PaymentDate Date, Amount Integer, FOREIGN KEY (OrderId) REFERENCES OrderTable (Id))";
+       // String receiptSql = "CREATE TABLE ReceiptTable (Id Integer PRIMARY KEY AUTOINCREMENT,OrderId Integer, PaymentDate Date, Amount Integer, FOREIGN KEY (OrderId) REFERENCES OrderTable (Id))";
+        String receiptSql = String.format("CREATE TABLE %s (%s Integer PRIMARY KEY AUTOINCREMENT, %s Integer, %s Date, %s Integer, FOREIGN KEY (%s) REFERENCES %s (%s))", Receipt.COLUMNS_NAME[0], Receipt.COLUMNS_NAME[1], Receipt.COLUMNS_NAME[2], Receipt.COLUMNS_NAME[3], Receipt.COLUMNS_NAME[4], Receipt.COLUMNS_NAME[2], Order.COLUMNS_NAME[0], Order.COLUMNS_NAME[1]);
         db.execSQL(receiptSql);
 
         // MeasurementsTable
         String measurementsSql = "CREATE TABLE MeasurementsTable (Id Integer PRIMARY KEY AUTOINCREMENT, CustomerId Integer, Length Real, Shoulder Real, Neck Real, Chest Real, Waist Real, Hip Real, Ghera Real, Type_of_Ghera Text, Arm Real, Moda Real, Shalwar_Length Real, Shalwar_Ghera Real, Shalwar_Pencha Real, No_of_Front_Pockets Integer, No_of_Side_Pockets Integer, No_of_Shalwar_Pockets Integer, Salaai_Type Text, FOREIGN KEY (CustomerId) REFERENCES CustomerTable (Id))";
+        //String orderQuery = String.format("CREATE TABLE %s (%s Integer PRIMARY KEY AUTOINCREMENT, %s Integer, %s Integer, %s Integer,%s Date, %s Date, %s Text, FOREIGN KEY (%s) REFERENCES %s (%s))", Order.COLUMNS_NAME[0], Order.COLUMNS_NAME[1], Order.COLUMNS_NAME[2], Order.COLUMNS_NAME[3], Order.COLUMNS_NAME[4], Order.COLUMNS_NAME[5], Order.COLUMNS_NAME[6], Order.COLUMNS_NAME[7],Order.COLUMNS_NAME[2],Customer.COLUMNS_NAME[0],Customer.COLUMNS_NAME[1]);
         db.execSQL(measurementsSql);
 
         // CheckBoxTable
         String checkBoxSql = "CREATE TABLE CheckBoxTable (Id Integer PRIMARY KEY AUTOINCREMENT, MeasurementName Text, MeasurementsOptions Text)";
+        //String orderQuery = String.format("CREATE TABLE %s (%s Integer PRIMARY KEY AUTOINCREMENT, %s Integer, %s Integer, %s Integer,%s Date, %s Date, %s Text, FOREIGN KEY (%s) REFERENCES %s (%s))", Order.COLUMNS_NAME[0], Order.COLUMNS_NAME[1], Order.COLUMNS_NAME[2], Order.COLUMNS_NAME[3], Order.COLUMNS_NAME[4], Order.COLUMNS_NAME[5], Order.COLUMNS_NAME[6], Order.COLUMNS_NAME[7],Order.COLUMNS_NAME[2],Customer.COLUMNS_NAME[0],Customer.COLUMNS_NAME[1]);
         db.execSQL(checkBoxSql);
 
         // Inserting Data
         String insertCheckBoxSql = "INSERT INTO CheckBoxTable (MeasurementName, MeasurementsOptions) Values ('Type_of_Ghera', 'Goal_Choros'), ('Salaai_Type', 'Single_Double_Triple')";
+       // String orderQuery = String.format("CREATE TABLE %s (%s Integer PRIMARY KEY AUTOINCREMENT, %s Integer, %s Integer, %s Integer,%s Date, %s Date, %s Text, FOREIGN KEY (%s) REFERENCES %s (%s))", Order.COLUMNS_NAME[0], Order.COLUMNS_NAME[1], Order.COLUMNS_NAME[2], Order.COLUMNS_NAME[3], Order.COLUMNS_NAME[4], Order.COLUMNS_NAME[5], Order.COLUMNS_NAME[6], Order.COLUMNS_NAME[7],Order.COLUMNS_NAME[2],Customer.COLUMNS_NAME[0],Customer.COLUMNS_NAME[1]);
         db.execSQL(insertCheckBoxSql);
     }
 

@@ -1,15 +1,9 @@
 package com.example.tailormanagementsystem;
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.database.Cursor;
-
-import java.util.Date;
 
 public class Order extends Table {
     static public final String[] COLUMNS_NAME = new String[] {"OrderTable", "Id", "CustomerId", "TotalAmount", "RemainingAmount", "OrderDate", "Deadline", "Status"};
-  
+
     Integer CustomerID;
     Integer TotalAmount;
     Integer RemainingAmount;
