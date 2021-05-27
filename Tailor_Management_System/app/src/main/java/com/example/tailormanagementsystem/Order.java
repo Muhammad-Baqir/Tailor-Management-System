@@ -1,5 +1,4 @@
 package com.example.tailormanagementsystem;
-
 import android.database.Cursor;
 
 public class Order extends Table {
