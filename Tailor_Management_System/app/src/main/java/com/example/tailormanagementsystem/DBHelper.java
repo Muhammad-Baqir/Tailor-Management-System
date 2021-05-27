@@ -69,7 +69,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("ALTER TABLE MeasurementsTable ADD COLUMN " + columnName + " " + columnType);
     }
 
-    public String getCheckBoxName(String measurementName) {
+    public String getRadioButtonNames(String measurementName) {
         String result = "";
 
         SQLiteDatabase db = this.getReadableDatabase();

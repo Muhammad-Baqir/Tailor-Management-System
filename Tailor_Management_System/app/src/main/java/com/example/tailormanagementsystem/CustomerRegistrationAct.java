@@ -32,38 +32,55 @@ public class CustomerRegistrationAct extends AppCompatActivity {
         setContentView(R.layout.activity_customer_registration);
 
         linearLayout = findViewById(R.id.linearLayout);
-
-        setMeasurements();
-
+        // Update Customer Registration Activity
+        addMeasurementsViews();
     }
-    private void setMeasurements() {
+
+    private void addMeasurementsViews() {
         DBHelper dbHelper = new DBHelper(this);
+
+        // First Pair Item => MeasurementName, Second Pair Item => MeasurementType
         List<Pair<String, String>> measurementsName = dbHelper.getMeasurementsTableColumns();
 
         for(int i = 0 ; i < measurementsName.size(); ++i) {
-            String columnName = measurementsName.get(i).first;
+            // Getting Current Measurement Name
+            String measurementName = measurementsName.get(i).first;
 
             if(measurementsName.get(i).second.equals("Text")) {
-                // CheckBox
-                String checkBoxName = dbHelper.getCheckBoxName(columnName);
-                String[] names  = checkBoxName.split("_");
+                // Add RadioGroupView
+                String radioButtonNames = dbHelper.getRadioButtonNames(measurementName);
+                // Splitting RadioButton Names
+                String[] names  = radioButtonNames.split("_");
 
                 View view = getLayoutInflater().inflate(R.layout.radio_group, null);
+                // Updating TextView 'Text'
                 TextView textView = view.findViewById(R.id.radioTextView);
-                textView.setText(columnName);
+                textView.setText(measurementName);
+                // Adding Radio Buttons
                 RadioGroup radioGroup = view.findViewById(R.id.radioGroup);
 
                 for(int j = 0; j < names.length; ++j) {
                     RadioButton radioButton = new RadioButton(this);
+                    // Updating Text of RadioButton
                     radioButton.setText(names[j]);
+                    // Adding RadioButton in RadioGroup
                     radioGroup.addView(radioButton);
                 }
 
                 linearLayout.addView(view);
-            } else {
+            } else if(measurementsName.get(i).second.equals("Integer")) {
+                // TODO
+                // New Layout
+                // integeral_measurement
+            }
+            else {
+                // For Real Measurement
+
                 View view = getLayoutInflater().inflate(R.layout.measurement_layout, null);
+                // Updating TextView 'Text'
                 TextView textView = view.findViewById(R.id.measurementNameView);
-                textView.setText(columnName);
+                textView.setText(measurementName);
+                // Adding in linearLayout
                 linearLayout.addView(view);
             }
         }
@@ -71,13 +88,13 @@ public class CustomerRegistrationAct extends AppCompatActivity {
 
     public void RegisterCustomer(View view) {
         // ToDO
-        int count = linearLayout.getChildCount();
-
-        for(int i= 0; i < count; ++i) {
-            View view1 = linearLayout.getChildAt(i);
-            TextView textView = view1.findViewById(R.id.measurementNameView);
-            EditText editText = view1.findViewById(R.id.measurementValueView);
-        }
+//        int count = linearLayout.getChildCount();
+//
+//        for(int i= 0; i < count; ++i) {
+//            View view1 = linearLayout.getChildAt(i);
+//            TextView textView = view1.findViewById(R.id.measurementNameView);
+//            EditText editText = view1.findViewById(R.id.measurementValueView);
+//        }
 
         Toast.makeText(this, "Customer Not Registered", Toast.LENGTH_LONG).show();
     }
