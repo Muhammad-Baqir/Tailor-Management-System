@@ -5,7 +5,7 @@ import android.database.Cursor;
 import java.util.Date;
 
 public class Receipt extends Table {
-    static public final String[] COLUMNS_NAME = new String[] {"ReceiptTable", "Id", "OrderId", "PaymentDate", "Amount"};
+    static public final String[] COLUMNS_NAME = new String[] {"ReceiptTable", "Id", "OrderID", "PaymentDate", "Amount"};
 
     Integer OrderID;
     String PaymentDate;

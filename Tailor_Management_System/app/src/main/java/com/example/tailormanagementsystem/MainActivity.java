@@ -10,6 +10,7 @@ import android.util.Pair;
 import android.view.View;
 
 import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
@@ -19,26 +20,28 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        DBHelper db = new DBHelper(this);
+        DBHelper db = new DBHelper(this);
 //
-//        ArrayList<Item> items = null;
-//        try {
+        ArrayList<Order> items = null;
+        try {
 //
-////            QueryHandler.add(db.getWritableDatabase(), new Item(0, "New Item 10", 100));
-////            QueryHandler.update(db.getWritableDatabase(), new Item(10, "Item Updated", 20));
+            String date = LocalDateTime.now().toLocalDate().toString();
+            QueryHandler.add(db.getWritableDatabase(), new Order(0, 1, 100, 0, date, date, "Pending"));
+//            QueryHandler.update(db.getWritableDatabase(), new Order(3, 1, 100, 10, "New Date", "New Date", "Completed"));
 ////            QueryHandler.delete(Item.class, db.getWritableDatabase(), 3);
 ////            QueryHandler.delete(Item.class, db.getWritableDatabase(), 5);
 ////            QueryHandler.delete(Item.class, db.getWritableDatabase(), 6);
 //
-//            items = QueryHandler.getAll(Item.class, db.getWritableDatabase());
+            items = QueryHandler.getAll(Order.class, db.getWritableDatabase());
 //
-//            for(int i = 0; i < items.size(); ++i) {
-//                Log.d("Item", items.get(i).Id + ":" + items.get(i).Name);
-//            }
+            for(int i = 0; i < items.size(); ++i) {
+                Order order = items.get(i);
+                Log.d("Item", order.Id.toString() +  " : " + order.OrderDate + " : " + order.Deadline + " : " + order.Status );
+            }
 //
-//        } catch (Exception exception) {
-//            Log.d("Exception", exception.getMessage());
-//        }
+        } catch (Exception exception) {
+            Log.d("Exception", exception.getMessage());
+        }
 
 
     }
@@ -46,6 +49,12 @@ public class MainActivity extends AppCompatActivity {
     // CustomerRegistrationButtonClick
     public void CustomerRegistration(View view) {
         Intent intent = new Intent(this, CustomerRegistrationAct.class);
+        startActivity(intent);
+    }
+
+    // Order Management Button Clicked
+    public void OrderManagement(View view) {
+        Intent intent = new Intent(this, OrderManagementAct.class);
         startActivity(intent);
     }
 }

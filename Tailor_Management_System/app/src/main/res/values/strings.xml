@@ -12,4 +12,11 @@
     <string name="NameHint">Name</string>
     <string name="RegisterButton">Register</string>
     <string name="Measurements">Measurements (Inch)</string>
+    <string name="Pending">Pending</string>
+    <string name="Completed">Completed</string>
+    <string name="Delivered">Delivered</string>
+    <string name="OrderId">Order Id</string>
+    <string name="No">No.</string>
+    <string name="Name">Name</string>
+    <string name="DeliveryDate">Delivery Date:</string>
 </resources>

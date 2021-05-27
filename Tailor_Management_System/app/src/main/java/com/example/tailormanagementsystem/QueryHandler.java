@@ -3,6 +3,7 @@ package com.example.tailormanagementsystem;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -11,7 +12,6 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 
 public class QueryHandler {
-
     static public <T extends Table> T get(Class<T> c, SQLiteDatabase db, int id) throws InstantiationException, IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
         T result = c.newInstance();
         String[] COLUMNS_NAME = (String[]) c.getDeclaredField("COLUMNS_NAME").get(null);
@@ -64,11 +64,11 @@ public class QueryHandler {
     static <T> ContentValues getContentValues(T item) throws IllegalAccessException, NoSuchFieldException {
         ContentValues cv = new ContentValues();
         Class c = item.getClass();
-        Field[] fields = c.getDeclaredFields();
         String[] COLUMNS_NAME = (String[]) c.getDeclaredField("COLUMNS_NAME").get(null);
 
-        for(int i = 0; i < fields.length - 1; ++i) {
-            cv.put(COLUMNS_NAME[i + 2], fields[i].get(item).toString());
+        for(int i = 0; i < COLUMNS_NAME.length - 2; ++i) {
+            Log.d("Item", COLUMNS_NAME[i+2] + " : " + c.getDeclaredField(COLUMNS_NAME[i+2]).get(item).toString());
+            cv.put(COLUMNS_NAME[i + 2],  c.getDeclaredField(COLUMNS_NAME[i+2]).get(item).toString());
         }
 
         return cv;
