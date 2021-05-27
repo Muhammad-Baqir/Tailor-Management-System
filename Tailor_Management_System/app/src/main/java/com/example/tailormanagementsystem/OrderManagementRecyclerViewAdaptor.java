@@ -1,6 +1,7 @@
 package com.example.tailormanagementsystem;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManagementRecyclerViewAdaptor.MyViewHolder> {
@@ -36,10 +38,16 @@ class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManag
         holder.textViewId.setText(order.Id.toString());
         holder.textViewCustomerNo.setText(order.CustomerId.toString());
 
-        // ToDo
-
+        // Getting Customer Info
+        Customer customer = null;
+        try {
+            customer = QueryHandler.get(Customer.class, order.CustomerId);
+        } catch (Exception exception) {
+            Log.d("ExceptionLocation", "OrderManagementRecyclerViewAdaptor.java");
+            Log.d("ExceptionDetail", exception.getMessage());
+        }
+        holder.textViewName.setText(customer.Name);
         holder.textViewDate.setText(order.Deadline);
-
     }
 
     @Override

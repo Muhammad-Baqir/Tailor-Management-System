@@ -20,27 +20,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DBHelper db = new DBHelper(this);
-//
+        // Must Include Line
+        QueryHandler.createNewDB(this);
+
+        //
         ArrayList<Order> items = null;
         try {
-//
             String date = LocalDateTime.now().toLocalDate().toString();
-            QueryHandler.add(db.getWritableDatabase(), new Order(0, 1, 100, 0, date, date, "Pending"));
-//            QueryHandler.update(db.getWritableDatabase(), new Order(3, 1, 100, 10, "New Date", "New Date", "Completed"));
-////            QueryHandler.delete(Item.class, db.getWritableDatabase(), 3);
-////            QueryHandler.delete(Item.class, db.getWritableDatabase(), 5);
-////            QueryHandler.delete(Item.class, db.getWritableDatabase(), 6);
-//
-            items = QueryHandler.getAll(Order.class, db.getWritableDatabase());
-//
+            QueryHandler.add(new Customer(0,"Baqir", "234342", "Male", "SDfdsf", "ssfd", 0));
+            QueryHandler.add(new Order(0, 1, 100, 0, date, date, "Delivered"));
+            QueryHandler.add(new Order(0, 1, 100, 0, date, date, "Completed"));
+            QueryHandler.add(new Order(0, 1, 100, 0, date, date, "Pending"));
+
+            items = QueryHandler.getAll(Order.class);
+
             for(int i = 0; i < items.size(); ++i) {
                 Order order = items.get(i);
                 Log.d("Item", order.Id.toString() +  " : " + order.OrderDate + " : " + order.Deadline + " : " + order.Status );
             }
-//
         } catch (Exception exception) {
-            Log.d("Exception", exception.getMessage());
+            Log.d("ExceptionLocation", "MainActivity.java");
+            Log.d("ExceptionDetail", exception.getMessage());
         }
 
 
