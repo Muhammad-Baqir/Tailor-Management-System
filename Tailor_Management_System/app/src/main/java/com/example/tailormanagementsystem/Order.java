@@ -1,17 +1,8 @@
 package com.example.tailormanagementsystem;
-import android.content.ContentValues;
 import android.database.Cursor;
 
-import java.util.Date;
-
 public class Order extends Table {
-    static public final String TABLE_NAME = "OrderTable";
-    static public final String CUSTOMER_ID = "CustomerId";
-    static public final String TOTAL_AMOUNT= "TotalAmount";
-    static public final String REMAINING_AMOUNT = "RemainingAmount";
-    static public final String ORDER_DATE = "OrderDate";
-    static public final String DEADLINE = "Deadline";
-    static public final String STATUS = "Status";
+    static public final String[] COLUMNS_NAME = new String[] {"OrderTable", "Id", "CustomerId", "TotalAmount", "RemainingAmount", "OrderDate", "Deadline", "Status"};
 
     Integer CustomerID;
     Integer TotalAmount;
@@ -20,7 +11,7 @@ public class Order extends Table {
     String Deadline;
     String Status;
 
-    public Order(Integer id ,Integer customerID, Integer totalAmount, Integer remainingAmount, String orderDate, String deadline, String status) {
+    public Order(Integer id, Integer customerID, Integer totalAmount, Integer remainingAmount, String orderDate, String deadline, String status) {
         Id = id;
         CustomerID = customerID;
         TotalAmount = totalAmount;
@@ -28,6 +19,20 @@ public class Order extends Table {
         OrderDate = orderDate;
         Deadline = deadline;
         Status = status;
+    }
+
+    public Order(Cursor cursor) {
+        Id = cursor.getInt(0);
+        CustomerID = cursor.getInt(1);
+        TotalAmount = cursor.getInt(2);
+        RemainingAmount = cursor.getInt(3);
+        OrderDate = cursor.getString(4);
+        Deadline = cursor.getString(5);
+        Status = cursor.getString(6);
+    }
+
+    public static String[] getColumnsName() {
+        return COLUMNS_NAME;
     }
 
     public Integer getCustomerID() {
@@ -76,24 +81,5 @@ public class Order extends Table {
 
     public void setStatus(String status) {
         Status = status;
-    }
-
-    //Override Methods
-    static public Table newObject(Cursor cursor) {
-        return new Order(cursor.getInt(0),cursor.getInt(1),cursor.getInt(2),cursor.getInt(3),cursor.getString(4),cursor.getString(5),cursor.getString(6));
-    }
-
-
-    static public ContentValues getContentValues(Order order) {
-        ContentValues cv = new ContentValues();
-
-        cv.put(CUSTOMER_ID, order.CustomerID);
-        cv.put(DEADLINE, order.Deadline);
-        cv.put(ORDER_DATE, order.OrderDate);
-        cv.put(REMAINING_AMOUNT, order.RemainingAmount);
-        cv.put(TOTAL_AMOUNT, order.TotalAmount);
-        cv.put(STATUS, order.Status);
-
-        return cv;
     }
 }

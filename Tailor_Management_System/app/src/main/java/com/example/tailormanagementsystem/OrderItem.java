@@ -1,35 +1,54 @@
 package com.example.tailormanagementsystem;
 
 
-public class OrderItem {
-    int OrderID;
-    int ItemID;
-    int Quantity;
+import android.database.Cursor;
 
-    public OrderItem(int orderID, int itemID, int quantity) {
-        OrderID=orderID;
-        ItemID=itemID;
-        Quantity=quantity;
+public class OrderItem extends Table {
+    static public final String[] COLUMNS_NAME = new String[] {"OrderItemTable", "Id", "OrderId", "ItemId", "Quantity"};
+
+    Integer OrderID;
+    Integer ItemID;
+    Integer Quantity;
+
+    public OrderItem(Integer id, Integer orderID, Integer itemID, Integer quantity) {
+        Id = id;
+        OrderID = orderID;
+        ItemID = itemID;
+        Quantity = quantity;
     }
-    public int getOrderID() {
+
+    public OrderItem(Cursor cursor) {
+        Id = cursor.getInt(0);
+        OrderID = cursor.getInt(1);
+        ItemID = cursor.getInt(2);
+        Quantity = cursor.getInt(3);
+    }
+
+    public static String[] getColumnsName() {
+        return COLUMNS_NAME;
+    }
+
+    public Integer getOrderID() {
         return OrderID;
     }
 
-    public void setOrderID(int orderID) {
+    public void setOrderID(Integer orderID) {
         OrderID = orderID;
     }
-    public int getItemID() {
+
+    public Integer getItemID() {
         return ItemID;
     }
 
-    public void setItemID(int itemID) {
+    public void setItemID(Integer itemID) {
         ItemID = itemID;
     }
-    public int getQuantity() {
+
+    public Integer getQuantity() {
         return Quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         Quantity = quantity;
     }
 }

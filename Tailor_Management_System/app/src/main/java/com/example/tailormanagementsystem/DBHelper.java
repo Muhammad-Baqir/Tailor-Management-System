@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import android.util.Pair;
 
 import androidx.annotation.Nullable;
@@ -20,7 +21,7 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         // CustomerTable
-        String customerQuery = String.format("CREATE TABLE %s (%s Integer PRIMARY KEY AUTOINCREMENT, %s Text, %s Text, %s Text, %s Text, %s Text, %s Integer)", Customer.TABLE_NAME, Customer.ID, Customer.NAME, Customer.PHONE_NUMBER, Customer.GENDER, Customer.ADDRESS, Customer.EMAIL, Customer.RELATED_CUSTOMER_ID);
+        String customerQuery = String.format("CREATE TABLE %s (%s Integer PRIMARY KEY AUTOINCREMENT, %s Text, %s Text, %s Text, %s Text, %s Text, %s Integer)", Customer.COLUMNS_NAME[0], Customer.COLUMNS_NAME[1], Customer.COLUMNS_NAME[2], Customer.COLUMNS_NAME[3], Customer.COLUMNS_NAME[4], Customer.COLUMNS_NAME[5], Customer.COLUMNS_NAME[6], Customer.COLUMNS_NAME[7]);
         db.execSQL(customerQuery);
 
         // OrderTable
@@ -68,6 +69,19 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("ALTER TABLE MeasurementsTable ADD COLUMN " + columnName + " " + columnType);
     }
 
+    public String getCheckBoxName(String measurementName) {
+        String result = "";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Cursor cursor = db.rawQuery("SELECT MeasurementsOptions  FROM CheckBoxTable WHERE MeasurementName = ?", new String[]{measurementName});
+
+        if(cursor.moveToFirst()) {
+            result = cursor.getString(0);
+        }
+
+        return result;
+    }
 
     public ArrayList<Pair<String, String>> getMeasurementsTableColumns() {
         ArrayList<Pair<String, String>> columns = new ArrayList<Pair<String, String>>();

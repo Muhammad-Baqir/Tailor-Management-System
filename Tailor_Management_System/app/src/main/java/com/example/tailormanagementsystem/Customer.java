@@ -3,14 +3,10 @@ package com.example.tailormanagementsystem;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import java.lang.reflect.Field;
+
 public class Customer extends Table {
-    static public final String TABLE_NAME = "CustomerTable";
-    static public final String NAME = "Name";
-    static public final String PHONE_NUMBER = "PhoneNumber";
-    static public final String GENDER = "Gender";
-    static public final String ADDRESS = "Address";
-    static public final String EMAIL = "Email";
-    static public final String RELATED_CUSTOMER_ID = "RelatedCustomerId";
+    static public final String[] COLUMNS_NAME = new String[] {"CustomerTable", "Id", "Name", "PhoneNumber", "Gender", "Address", "Email", "RelatedCustomerId"};
 
     String Name;
     String PhoneNumber;
@@ -27,6 +23,16 @@ public class Customer extends Table {
         Address=address;
         Email=email;
         RelatedCustomerId=relatedCustomerId;
+    }
+
+    public Customer(Cursor cursor) {
+        Id = cursor.getInt(0);
+        Name = cursor.getString(1);
+        PhoneNumber = cursor.getString(2);
+        Gender = cursor.getString(3);
+        Address = cursor.getString(4);
+        Email = cursor.getString(5);
+        RelatedCustomerId = cursor.getInt(6);
     }
 
     public Integer getId() {
@@ -83,22 +89,5 @@ public class Customer extends Table {
 
     public void setRelatedCustomerId(Integer relatedCustomerId) {
         RelatedCustomerId = relatedCustomerId;
-    }
-
-    static public Table newObject(Cursor cursor) {
-        return new Customer(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getInt(6));
-    }
-
-    static public ContentValues getContentValues(Customer customer) {
-        ContentValues cv = new ContentValues();
-
-        cv.put(NAME, customer.Name);
-        cv.put(EMAIL, customer.Email);
-        cv.put(ADDRESS, customer.Address);
-        cv.put(GENDER, customer.Gender);
-        cv.put(PHONE_NUMBER, customer.PhoneNumber);
-        cv.put(RELATED_CUSTOMER_ID, customer.RelatedCustomerId);
-
-        return cv;
     }
 }
