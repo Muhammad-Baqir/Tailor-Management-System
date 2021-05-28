@@ -57,4 +57,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, OrderManagementAct.class);
         startActivity(intent);
     }
+
+    // Customer Management Button Clicked
+    public void AllCustomer(View view) {
+        Intent intent = new Intent(this, CustomerManagementAct.class);
+        startActivity(intent);
+    }
 }

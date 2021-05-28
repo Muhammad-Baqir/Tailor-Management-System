@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TailorManagementSystem">
         <activity android:name=".OrderDetailsAct"></activity>
+        <activity android:name=".CustomerManagementAct" />
         <activity android:name=".OrderManagementAct" />
         <activity android:name=".CustomerRegistrationAct" />
-        <activity android:name=".CustomerRegistration" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

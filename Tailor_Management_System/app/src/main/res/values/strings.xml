@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Tailor Management System</string>
     <string name="AddNewOrderButtonText">Add New Order</string>
-    <string name="AllCustomersButtonText">All Customers</string>
+    <string name="AllCustomersButtonText">Customer Management</string>
     <string name="OrderManagementButtonText">Order Management</string>
     <string name="OrderSummaryButtonText">Order Summary</string>
     <string name="AboutUsButtonText">About Us</string>
@@ -30,7 +30,8 @@
     <string name="Status">Status</string>
     <string name="Update">Update</string>
     <string name="Empty"></string>
-   <string-array name="spinner_values_real">
+    <string name="PhoneNumber">Phone Number</string>
+    <string-array name="spinner_values_real">
         <item>0</item>
         <item>1/2</item>
         <item>1/4</item>

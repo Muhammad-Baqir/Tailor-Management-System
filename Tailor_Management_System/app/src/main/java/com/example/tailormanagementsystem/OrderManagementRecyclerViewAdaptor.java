@@ -12,7 +12,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManagementRecyclerViewAdaptor.MyViewHolder> {
@@ -31,7 +30,7 @@ class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManag
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.order_managment_recycler_view_layout, parent, false);
+                .inflate(R.layout.layout_order_managment_recycler_view, parent, false);
         return new MyViewHolder(itemView);
     }
 

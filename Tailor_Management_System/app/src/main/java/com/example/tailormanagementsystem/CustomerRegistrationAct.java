@@ -89,7 +89,7 @@ public class CustomerRegistrationAct extends AppCompatActivity {
                 // Updating Spinner
                 Spinner spinner = view.findViewById(R.id.customerRegistrationSpinnerReal);
                 ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                        R.array.spinner_values_real, android.R.layout.simple_spinner_item);
+                    R.array.spinner_values_real, android.R.layout.simple_spinner_item);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 spinner.setAdapter(adapter);
                 // Adding in linearLayout
