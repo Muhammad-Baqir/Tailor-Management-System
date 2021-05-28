@@ -9,8 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TailorManagementSystem">
+<<<<<<< HEAD
+        <activity android:name=".NewOrderAct"></activity>
+=======
         <activity android:name=".OrderDetailsAct"></activity>
         <activity android:name=".CustomerManagementAct" />
+>>>>>>> d9db805034b6769fb691ee86752b31da923473c7
         <activity android:name=".OrderManagementAct" />
         <activity android:name=".CustomerRegistrationAct" />
         <activity android:name=".MainActivity">

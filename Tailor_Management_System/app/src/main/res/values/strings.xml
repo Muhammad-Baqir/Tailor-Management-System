@@ -20,6 +20,9 @@
     <string name="No">No.</string>
     <string name="Name">Name</string>
     <string name="DeliveryDate">Delivery Date:</string>
+<<<<<<< HEAD
+    <string name="Adress">Adress</string>
+=======
     <string name="CustomerId">Customer No</string>
     <string name="OrderDate">Order Date:</string>
     <string name="PhoneNo">Phone No: </string>
@@ -48,4 +51,5 @@
         <item>Completed</item>
         <item>Delivered</item>
     </string-array>
+>>>>>>> d9db805034b6769fb691ee86752b31da923473c7
 </resources>
