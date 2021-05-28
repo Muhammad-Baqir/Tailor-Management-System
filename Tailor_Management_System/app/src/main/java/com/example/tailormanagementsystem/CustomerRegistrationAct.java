@@ -11,11 +11,14 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,8 +26,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class CustomerRegistrationAct extends AppCompatActivity {
+public class CustomerRegistrationAct extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     LinearLayout linearLayout;
+    private Spinner spinnerNumber,spinnerInteger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +38,18 @@ public class CustomerRegistrationAct extends AppCompatActivity {
         linearLayout = findViewById(R.id.linearLayout);
         // Update Customer Registration Activity
         addMeasurementsViews();
+
+        spinnerNumber = findViewById(R.id.spinnerNumber);
+        String[] textSizes = getResources().getStringArray(R.array.numbers);
+        ArrayAdapter adapter1 = new ArrayAdapter(this, android.R.layout.simple_spinner_item,textSizes);
+        adapter1.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerNumber.setAdapter(adapter1);
+
+        spinnerInteger = findViewById(R.id.spinnerInteger);
+        String[] int1 = getResources().getStringArray(R.array.integer);
+        ArrayAdapter adapter2 = new ArrayAdapter(this, android.R.layout.simple_spinner_item,int1);
+        adapter2.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerInteger.setAdapter(adapter2);
     }
 
     private void addMeasurementsViews() {
@@ -69,10 +85,15 @@ public class CustomerRegistrationAct extends AppCompatActivity {
                 }
 
                 linearLayout.addView(view);
-            } else if(measurementType.equals("Integer")) {
-                // TODO
-                // New Layout
-                // integeral_measurement
+            } else if(measurementsName.get(i).second.equals("Integer")) {
+                // For Integer Measurement
+
+                View view = getLayoutInflater().inflate(R.layout.measurement_layout_integer, null);
+                // Updating TextView 'Text'
+                TextView textView = view.findViewById(R.id.measurementIntegerView);
+                textView.setText(measurementName);
+                // Adding in linearLayout
+                linearLayout.addView(view);
             }
             else {
                 // For Real Measurement
@@ -97,5 +118,15 @@ public class CustomerRegistrationAct extends AppCompatActivity {
 //        }
 
         Toast.makeText(this, "Customer Not Registered", Toast.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
     }
 }
