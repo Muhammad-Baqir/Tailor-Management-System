@@ -11,6 +11,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.List;
 
 public class QueryHandler {
     private static DBHelper dbHelper;
@@ -55,12 +56,24 @@ public class QueryHandler {
         return result;
     }
 
-    static public <T extends Table> boolean add(T item) throws NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+    static public <T extends Table> Integer add(T item) throws NoSuchFieldException, NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         Class c = item.getClass();
         ContentValues cv = getContentValues(item);
         String[] COLUMNS_NAME = (String[]) c.getDeclaredField("COLUMNS_NAME").get(null);
 
-        return writeableDB.insert(COLUMNS_NAME[0], null, cv) != -1;
+        boolean isDataInserted = writeableDB.insert(COLUMNS_NAME[0], null, cv) != -1;
+
+        // Getting Id of Newly Inserted Data
+        if(isDataInserted) {
+            try {
+                List<T> items = getAll(c);
+                return items.get(items.size() - 1).Id;
+            } catch (InstantiationException e) {
+                e.printStackTrace();
+            }
+        }
+
+        return -1;
     }
 
     static public <T extends Table> boolean update(T item) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException, NoSuchFieldException {

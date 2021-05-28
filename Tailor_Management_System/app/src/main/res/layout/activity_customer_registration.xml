@@ -45,6 +45,37 @@
                 android:hint="@string/AddressHint"
                 android:inputType="textPersonName"
                 android:textAlignment="center" />
+
+            <EditText
+                android:id="@+id/customerRegistrationEditTextEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:textAlignment="center"
+                android:hint="@string/EmailHint"
+                android:inputType="textPersonName" />
+
+            <RadioGroup
+                android:id="@+id/customerRegistrationRadioButtonGender"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/customerRegistrationRadioButtonMale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Male" />
+
+                <RadioButton
+                    android:id="@+id/customerRegistrationRadioButtonFemale"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/Female" />
+            </RadioGroup>
+
             <TextView
                 android:id="@+id/textView3"
                 android:layout_width="match_parent"

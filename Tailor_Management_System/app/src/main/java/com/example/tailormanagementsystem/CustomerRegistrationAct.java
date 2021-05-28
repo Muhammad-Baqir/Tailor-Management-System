@@ -21,6 +21,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class CustomerRegistrationAct extends AppCompatActivity {
@@ -30,6 +31,8 @@ public class CustomerRegistrationAct extends AppCompatActivity {
     EditText editTextName;
     EditText editTextPhoneNo;
     EditText editTextAddress;
+    EditText editTextEmail;
+    RadioGroup radioGroupGender;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,6 +47,8 @@ public class CustomerRegistrationAct extends AppCompatActivity {
         editTextName = findViewById(R.id.customerRegistrationEditTextName);
         editTextPhoneNo = findViewById(R.id.customerRegistrationEditTextPhoneNo);
         editTextAddress = findViewById(R.id.customerRegistrationEditTextAddress);
+        editTextEmail = findViewById(R.id.customerRegistrationEditTextEmail);
+        radioGroupGender = findViewById(R.id.customerRegistrationRadioButtonGender);
     }
 
     private void addMeasurementsViews() {
@@ -116,19 +121,25 @@ public class CustomerRegistrationAct extends AppCompatActivity {
 
     public void RegisterCustomer(View view) {
         // CustomerRegistration
-
+        String name = editTextName.getText().toString();
+        String email = editTextEmail.getText().toString();
+        String phoneNo = editTextPhoneNo.getText().toString();
+        String address = editTextAddress.getText().toString();
+        String gender = ((RadioButton)findViewById(radioGroupGender.getCheckedRadioButtonId())).getText().toString();
+        // New Added Customer
+        Integer customerId = -1;
 
         try {
-            QueryHandler.add(new Customer(0, "Name", "PhoneNo", "Gender", "address", "email", 0));
+            customerId = QueryHandler.add(new Customer(0, name, phoneNo, gender, address, email, 0));
         } catch (Exception exception) {
             Log.d("ExceptionLocation", "CustomerRegistrationAct.java");
             Log.d("ExceptionDetail", exception.getMessage());
         }
 
 
+        List<String> measurementsValue = new ArrayList<>();
 
         // CustomerMeasurementsRegistration
-
         int count = linearLayout.getChildCount();
         for(int i = 2; i < measurements.size(); ++i) {
             // Getting Current Measurement Name&Type
@@ -151,12 +162,16 @@ public class CustomerRegistrationAct extends AppCompatActivity {
                     }
                 }
                 Log.d("Value", textValue + ":" + measurements.get(i).first);
+                // Add Measurement
+                measurementsValue.add(textValue);
             } else if(measurementType.equals("Integer")) {
                 // Integral Measurement
                 Spinner spinner = (Spinner)constraintLayout.getChildAt(1);
                 Integer integerValue = Integer.parseInt(spinner.getSelectedItem().toString());
                 // Displaying
                 Log.d("Value", integerValue + ":" + measurements.get(i).first);
+                // Add Measurement
+                measurementsValue.add(integerValue.toString());
             } else {
                 // Real Measurement
                 EditText editText = (EditText) constraintLayout.getChildAt(1);
@@ -164,7 +179,7 @@ public class CustomerRegistrationAct extends AppCompatActivity {
 
                 // Getting Float Part
                 String value =  spinner.getSelectedItem().toString();
-                float floatValue = 0;
+                Float floatValue = 0f;
                 switch (value) {
                     case "1/2":
                         floatValue = 0.5f;
@@ -180,8 +195,13 @@ public class CustomerRegistrationAct extends AppCompatActivity {
                 Integer integralValue = Integer.parseInt(editText.getText().toString());
                 floatValue += integralValue;
                 Log.d("Value", floatValue + ":" + measurements.get(i).first);
+                // Add Measurement
+                measurementsValue.add(floatValue.toString());
             }
         }
+
+        // Add into Database
+        DBHelper.addNewMeasurement(customerId, measurementsValue);
 
         Toast.makeText(this, "Customer Registered Successfully", Toast.LENGTH_LONG).show();
     }

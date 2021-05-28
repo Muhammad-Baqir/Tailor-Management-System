@@ -11,6 +11,7 @@ import android.util.Pair;
 import androidx.annotation.Nullable;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class DBHelper extends SQLiteOpenHelper {
 
@@ -104,6 +105,13 @@ public class DBHelper extends SQLiteOpenHelper {
         }
 
         return columns;
+    }
+
+    static public void addNewMeasurement(Integer customerId, List<String> measurements) {
+//        SQLiteDatabase db = QueryHandler.getWriteableDB();
+
+
+//        db.insert("TableName", new ContentValues(), );
     }
 
 }
