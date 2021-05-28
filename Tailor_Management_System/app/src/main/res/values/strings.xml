@@ -19,6 +19,7 @@
     <string name="No">No.</string>
     <string name="Name">Name</string>
     <string name="DeliveryDate">Delivery Date:</string>
+    <string name="PhoneNumber">Phone Number</string>
     <string-array name="numbers">
         <item>0</item>
         <item>1/2</item>
