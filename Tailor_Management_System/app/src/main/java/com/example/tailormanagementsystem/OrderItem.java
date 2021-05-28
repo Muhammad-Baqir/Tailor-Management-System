@@ -4,7 +4,7 @@ package com.example.tailormanagementsystem;
 import android.database.Cursor;
 
 public class OrderItem extends Table {
-    static public final String[] COLUMNS_NAME = new String[] {"OrderItemTable", "Id", "OrderId", "ItemId", "Quantity"};
+    static public final String[] COLUMNS_NAME = new String[] {"OrderItemTable", "Id", "OrderID", "ItemID", "Quantity"};
 
     Integer OrderID;
     Integer ItemID;

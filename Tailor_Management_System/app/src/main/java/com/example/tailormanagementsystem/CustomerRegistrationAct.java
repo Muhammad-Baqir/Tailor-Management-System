@@ -56,13 +56,14 @@ public class CustomerRegistrationAct extends AppCompatActivity implements Adapte
         DBHelper dbHelper = new DBHelper(this);
 
         // First Pair Item => MeasurementName, Second Pair Item => MeasurementType
-        List<Pair<String, String>> measurementsName = dbHelper.getMeasurementsTableColumns();
+        List<Pair<String, String>> measurements = dbHelper.getMeasurementsTableColumns();
 
-        for(int i = 0 ; i < measurementsName.size(); ++i) {
-            // Getting Current Measurement Name
-            String measurementName = measurementsName.get(i).first;
+        for(int i = 0 ; i < measurements.size(); ++i) {
+            // Getting Current Measurement Name&Type
+            String measurementName = measurements.get(i).first;
+            String measurementType = measurements.get(i).second;
 
-            if(measurementsName.get(i).second.equals("Text")) {
+            if(measurementType.equals("Text")) {
                 // Add RadioGroupView
                 String radioButtonNames = dbHelper.getRadioButtonNames(measurementName);
                 // Splitting RadioButton Names
@@ -96,7 +97,6 @@ public class CustomerRegistrationAct extends AppCompatActivity implements Adapte
             }
             else {
                 // For Real Measurement
-
                 View view = getLayoutInflater().inflate(R.layout.measurement_layout, null);
                 // Updating TextView 'Text'
                 TextView textView = view.findViewById(R.id.measurementNameView);

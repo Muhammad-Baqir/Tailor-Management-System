@@ -1,16 +1,10 @@
 package com.example.tailormanagementsystem;
-import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.database.Cursor;
-
-import java.util.Date;
 
 public class Order extends Table {
     static public final String[] COLUMNS_NAME = new String[] {"OrderTable", "Id", "CustomerId", "TotalAmount", "RemainingAmount", "OrderDate", "Deadline", "Status"};
   
-    Integer CustomerID;
+    Integer CustomerId;
     Integer TotalAmount;
     Integer RemainingAmount;
     String OrderDate;
@@ -19,7 +13,7 @@ public class Order extends Table {
 
     public Order(Integer id, Integer customerID, Integer totalAmount, Integer remainingAmount, String orderDate, String deadline, String status) {
         Id = id;
-        CustomerID = customerID;
+        CustomerId = customerID;
         TotalAmount = totalAmount;
         RemainingAmount = remainingAmount;
         OrderDate = orderDate;
@@ -29,7 +23,7 @@ public class Order extends Table {
 
     public Order(Cursor cursor) {
         Id = cursor.getInt(0);
-        CustomerID = cursor.getInt(1);
+        CustomerId = cursor.getInt(1);
         TotalAmount = cursor.getInt(2);
         RemainingAmount = cursor.getInt(3);
         OrderDate = cursor.getString(4);
@@ -41,12 +35,12 @@ public class Order extends Table {
         return COLUMNS_NAME;
     }
 
-    public Integer getCustomerID() {
-        return CustomerID;
+    public Integer getCustomerId() {
+        return CustomerId;
     }
 
-    public void setCustomerID(Integer customerID) {
-        CustomerID = customerID;
+    public void setCustomerId(Integer customerId) {
+        CustomerId = customerId;
     }
 
     public Integer getTotalAmount() {
