@@ -8,7 +8,7 @@
     <string name="CustomerRegButtonText">Customer Registration</string>
     <string name="CustomerRegistrationTitle">Customer Registration</string>
     <string name="PhoneNumberHint">Phone Number (e.g. 03461232122)</string>
-    <string name="AddressHint">Address</string>
+    <string name="Address">Address</string>
     <string name="NameHint">Name</string>
     <string name="RegisterButton">Register</string>
     <string name="Measurements">Measurements (Inch)</string>
@@ -19,4 +19,13 @@
     <string name="No">No.</string>
     <string name="Name">Name</string>
     <string name="DeliveryDate">Delivery Date:</string>
+    <string name="CustomerId">Customer No</string>
+    <string name="OrderDate">Order Date:</string>
+    <string name="PhoneNo">Phone No: </string>
+    <string name="Quantity">Total Pieces:</string>
+    <string name="AdvancePayment">Advance Payment</string>
+    <string name="TotalAmount">Total Bill:</string>
+    <string name="RemainingAmount">Remaining Payment</string>
+    <string name="Status">Status</string>
+    <string name="Update">Update</string>
 </resources>

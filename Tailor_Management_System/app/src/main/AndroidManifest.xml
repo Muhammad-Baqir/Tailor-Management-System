@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TailorManagementSystem">
-        <activity android:name=".OrderManagementAct"></activity>
+        <activity android:name=".OrderDetailsAct"></activity>
+        <activity android:name=".OrderManagementAct" />
         <activity android:name=".CustomerRegistrationAct" />
         <activity android:name=".CustomerRegistration" />
         <activity android:name=".MainActivity">
