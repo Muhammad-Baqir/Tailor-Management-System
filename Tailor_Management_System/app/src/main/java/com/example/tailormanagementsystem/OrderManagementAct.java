@@ -47,7 +47,7 @@ public class OrderManagementAct extends AppCompatActivity {
         updateOrders("Pending");
 
         // Displaying
-        adapter = new OrderManagementRecyclerViewAdaptor(adaptorOrders, OrderManagementAct.this);
+        adapter = new OrderManagementRecyclerViewAdaptor(adaptorOrders, OrderManagementAct.this, this);
         recyclerView.setAdapter(adapter);
     }
 

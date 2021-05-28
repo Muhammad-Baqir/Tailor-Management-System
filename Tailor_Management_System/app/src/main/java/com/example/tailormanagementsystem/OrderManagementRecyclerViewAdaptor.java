@@ -1,6 +1,8 @@
 package com.example.tailormanagementsystem;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,13 +16,14 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManagementRecyclerViewAdaptor.MyViewHolder> {
-
     List<Order> orders;
     Activity mAct;
+    Context context;
 
-    public OrderManagementRecyclerViewAdaptor(List<Order> orders, Activity mAct) {
+    public OrderManagementRecyclerViewAdaptor(List<Order> orders, Activity mAct, Context context) {
         this.orders = orders;
         this.mAct = mAct;
+        this.context = context;
     }
 
     @NonNull
@@ -67,6 +70,32 @@ class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManag
             textViewCustomerNo = itemView.findViewById(R.id.orderManagementRecyclerViewLayoutTextViewCustomerNo);
             textViewName = itemView.findViewById(R.id.orderManagementRecyclerViewLayoutTextViewName);
             textViewDate = itemView.findViewById(R.id.orderManagementRecyclerViewLayoutTextViewDDate);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Getting OrderId Text View & CustomerId TextView
+                    TextView textView1 = v.findViewById(R.id.orderManagementRecyclerViewLayoutTextViewId);
+                    TextView textView2 = v.findViewById(R.id.orderManagementRecyclerViewLayoutTextViewCustomerNo);
+
+                    // Getting Order Id
+                    Integer orderId = Integer.parseInt(textView1.getText().toString());
+                    Integer customerId = Integer.parseInt(textView2.getText().toString());
+
+                    // Displaying Id
+                    Log.d("ItemClicked", Integer.toString(orderId));
+
+                    // New Activity
+                    Intent intent = new Intent(context, OrderDetailsAct.class);
+                    intent.putExtra("OrderId", orderId);
+                    intent.putExtra("CustomerId", customerId);
+                    context.startActivity(intent);
+
+                    // When Come back from activity, update 'orders'
+                    // ToDO
+                }
+            });
+
         }
     }
 }

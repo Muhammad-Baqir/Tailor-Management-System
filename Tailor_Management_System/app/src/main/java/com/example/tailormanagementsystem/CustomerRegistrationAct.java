@@ -1,30 +1,24 @@
 package com.example.tailormanagementsystem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.constraintlayout.widget.ConstraintLayout;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.EditText;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class CustomerRegistrationAct extends AppCompatActivity {
     LinearLayout linearLayout;
+    private Spinner spinnerNumber,spinnerInteger;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +47,7 @@ public class CustomerRegistrationAct extends AppCompatActivity {
                 // Splitting RadioButton Names
                 String[] names  = radioButtonNames.split("_");
 
-                View view = getLayoutInflater().inflate(R.layout.radio_group, null);
+                View view = getLayoutInflater().inflate(R.layout.layout_customer_registration_text, null);
                 // Updating TextView 'Text'
                 TextView textView = view.findViewById(R.id.radioTextView);
                 textView.setText(measurementName);
@@ -70,16 +64,34 @@ public class CustomerRegistrationAct extends AppCompatActivity {
 
                 linearLayout.addView(view);
             } else if(measurementType.equals("Integer")) {
-                // TODO
-                // New Layout
-                // integeral_measurement
+                // For Integer Measurement
+                View view = getLayoutInflater().inflate(R.layout.layout_customer_registration_integer, null);
+                // Updating TextView 'Text'
+                TextView textView = view.findViewById(R.id.measurementIntegerView);
+                textView.setText(measurementName);
+
+                // Updating Spinner
+                Spinner spinner = view.findViewById(R.id.customerRegistrationSpinnerInteger);
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                        R.array.spinner_values_integer, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(adapter);
+
+                // Adding in linearLayout
+                linearLayout.addView(view);
             }
             else {
                 // For Real Measurement
-                View view = getLayoutInflater().inflate(R.layout.measurement_layout, null);
+                View view = getLayoutInflater().inflate(R.layout.layout_customer_registration_real, null);
                 // Updating TextView 'Text'
                 TextView textView = view.findViewById(R.id.measurementNameView);
                 textView.setText(measurementName);
+                // Updating Spinner
+                Spinner spinner = view.findViewById(R.id.customerRegistrationSpinnerReal);
+                ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                        R.array.spinner_values_real, android.R.layout.simple_spinner_item);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                spinner.setAdapter(adapter);
                 // Adding in linearLayout
                 linearLayout.addView(view);
             }

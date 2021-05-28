@@ -1,5 +1,7 @@
 package com.example.tailormanagementsystem;
+import android.content.ContentValues;
 import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
 
 public class Order extends Table {
     static public final String[] COLUMNS_NAME = new String[] {"OrderTable", "Id", "CustomerId", "TotalAmount", "RemainingAmount", "OrderDate", "Deadline", "Status"};
@@ -81,5 +83,15 @@ public class Order extends Table {
 
     public void setStatus(String status) {
         Status = status;
+    }
+
+    // DB methods
+    static public void updateOrderStatus(Integer orderId, String status) {
+        SQLiteDatabase db = QueryHandler.getWriteableDB();
+
+        ContentValues cv = new ContentValues();
+        cv.put(COLUMNS_NAME[7], status);
+
+        db.update(COLUMNS_NAME[0], cv, String.format("%s = ?", COLUMNS_NAME[1]), new String[]{Integer.toString(orderId)});
     }
 }

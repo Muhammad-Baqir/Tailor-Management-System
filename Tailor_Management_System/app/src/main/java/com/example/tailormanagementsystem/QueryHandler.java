@@ -24,6 +24,9 @@ public class QueryHandler {
         writeableDB = dbHelper.getWritableDatabase();
     }
 
+    static public SQLiteDatabase getWriteableDB() {
+        return writeableDB;
+    }
 
     static public <T extends Table> T get(Class<T> c, int id) throws InstantiationException, IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
         T result = null;
