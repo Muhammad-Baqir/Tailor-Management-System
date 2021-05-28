@@ -17,10 +17,9 @@ import java.util.List;
 class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManagementRecyclerViewAdaptor.MyViewHolder> {
     List<Order> orders;
     Activity mAct;
-    Context context;
-    String currentStatus;
+    OrderManagementAct context;
 
-    public OrderManagementRecyclerViewAdaptor(List<Order> orders, Activity mAct, Context context) {
+    public OrderManagementRecyclerViewAdaptor(List<Order> orders, Activity mAct, OrderManagementAct context) {
         this.orders = orders;
         this.mAct = mAct;
         this.context = context;
@@ -52,31 +51,6 @@ class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManag
         holder.textViewName.setText(customer.Name);
         holder.textViewDate.setText(order.Deadline);
     }
-
-    public void updateOrders() {
-        List<Order> allOrders = null;
-        // Getting Orders
-        try {
-            allOrders = QueryHandler.getAll(Order.class);
-        } catch (Exception exception) {
-            Log.d("ExceptionLocation", "OrderManagementAct.java");
-            Log.d("ExceptionDetail", exception.getMessage());
-        }
-
-
-        // Updating
-        orders.clear();
-
-        for(int i= 0; i < allOrders.size(); ++i) {
-            if(allOrders.get(i).Status.equals(currentStatus)) {
-                orders.add(allOrders.get(i));
-            }
-        }
-
-        // DataSetChanged
-        notifyDataSetChanged();
-    }
-
 
     @Override
     public int getItemCount() {
@@ -114,12 +88,8 @@ class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManag
                     Intent intent = new Intent(context, OrderDetailsAct.class);
                     intent.putExtra("OrderId", orderId);
                     intent.putExtra("CustomerId", customerId);
-                    context.startActivity(intent);
 
-                    Log.d("ActivityFinished", "Yup");
-
-                    // When Come back from activity, update 'orders'
-                    updateOrders();
+                    context.startActivityForResult(intent, 1);
                 }
             });
 

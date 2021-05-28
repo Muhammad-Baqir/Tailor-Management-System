@@ -1,12 +1,18 @@
 package com.example.tailormanagementsystem;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.GridLayout;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -14,11 +20,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.List;
 
 public class CustomerRegistrationAct extends AppCompatActivity {
     LinearLayout linearLayout;
-    private Spinner spinnerNumber,spinnerInteger;
+    List<Pair<String, String>> measurements;
+
+    EditText editTextName;
+    EditText editTextPhoneNo;
+    EditText editTextAddress;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +39,20 @@ public class CustomerRegistrationAct extends AppCompatActivity {
         linearLayout = findViewById(R.id.linearLayout);
         // Update Customer Registration Activity
         addMeasurementsViews();
+
+        // Getting Views
+        editTextName = findViewById(R.id.customerRegistrationEditTextName);
+        editTextPhoneNo = findViewById(R.id.customerRegistrationEditTextPhoneNo);
+        editTextAddress = findViewById(R.id.customerRegistrationEditTextAddress);
     }
 
     private void addMeasurementsViews() {
         DBHelper dbHelper = new DBHelper(this);
 
         // First Pair Item => MeasurementName, Second Pair Item => MeasurementType
-        List<Pair<String, String>> measurements = dbHelper.getMeasurementsTableColumns();
+        measurements = dbHelper.getMeasurementsTableColumns();
 
-        for(int i = 0 ; i < measurements.size(); ++i) {
+        for(int i = 2 ; i < measurements.size(); ++i) {
             // Getting Current Measurement Name&Type
             String measurementName = measurements.get(i).first;
             String measurementType = measurements.get(i).second;
@@ -99,15 +115,74 @@ public class CustomerRegistrationAct extends AppCompatActivity {
     }
 
     public void RegisterCustomer(View view) {
-        // ToDO
-//        int count = linearLayout.getChildCount();
-//
-//        for(int i= 0; i < count; ++i) {
-//            View view1 = linearLayout.getChildAt(i);
-//            TextView textView = view1.findViewById(R.id.measurementNameView);
-//            EditText editText = view1.findViewById(R.id.measurementValueView);
-//        }
+        // CustomerRegistration
 
-        Toast.makeText(this, "Customer Not Registered", Toast.LENGTH_LONG).show();
+
+        try {
+            QueryHandler.add(new Customer(0, "Name", "PhoneNo", "Gender", "address", "email", 0));
+        } catch (Exception exception) {
+            Log.d("ExceptionLocation", "CustomerRegistrationAct.java");
+            Log.d("ExceptionDetail", exception.getMessage());
+        }
+
+
+
+        // CustomerMeasurementsRegistration
+
+        int count = linearLayout.getChildCount();
+        for(int i = 2; i < measurements.size(); ++i) {
+            // Getting Current Measurement Name&Type
+            String measurementName = measurements.get(i).first;
+            String measurementType = measurements.get(i).second;
+
+            ConstraintLayout constraintLayout = (ConstraintLayout) linearLayout.getChildAt(i - 2);
+
+            if(measurementType.equals("Text")) {
+                RadioGroup radioGroup = (RadioGroup) constraintLayout.getChildAt(1);
+                int id = radioGroup.getCheckedRadioButtonId();
+                String textValue = "NaN";
+
+                // Getting Value
+                for(int j =0; j < radioGroup.getChildCount(); ++j) {
+                    RadioButton radioButton = (RadioButton) radioGroup.getChildAt(j);
+
+                    if(id == radioButton.getId()) {
+                        textValue = radioButton.getText().toString();
+                    }
+                }
+                Log.d("Value", textValue + ":" + measurements.get(i).first);
+            } else if(measurementType.equals("Integer")) {
+                // Integral Measurement
+                Spinner spinner = (Spinner)constraintLayout.getChildAt(1);
+                Integer integerValue = Integer.parseInt(spinner.getSelectedItem().toString());
+                // Displaying
+                Log.d("Value", integerValue + ":" + measurements.get(i).first);
+            } else {
+                // Real Measurement
+                EditText editText = (EditText) constraintLayout.getChildAt(1);
+                Spinner spinner = (Spinner)constraintLayout.getChildAt(2);
+
+                // Getting Float Part
+                String value =  spinner.getSelectedItem().toString();
+                float floatValue = 0;
+                switch (value) {
+                    case "1/2":
+                        floatValue = 0.5f;
+                        break;
+                    case "1/4":
+                        floatValue = 0.25f;
+                        break;
+                    case "3/4":
+                        floatValue = 0.75f;
+                }
+
+                // Getting Integral Part
+                Integer integralValue = Integer.parseInt(editText.getText().toString());
+                floatValue += integralValue;
+                Log.d("Value", floatValue + ":" + measurements.get(i).first);
+            }
+        }
+
+        Toast.makeText(this, "Customer Registered Successfully", Toast.LENGTH_LONG).show();
     }
 }

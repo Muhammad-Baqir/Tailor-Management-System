@@ -1,9 +1,11 @@
 package com.example.tailormanagementsystem;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,6 +19,7 @@ public class OrderManagementAct extends AppCompatActivity {
     RecyclerView recyclerView;
     OrderManagementRecyclerViewAdaptor adapter = null;
     RecyclerView.LayoutManager layoutManager;
+    String currentStatus;
 
     List<Order> allOrders;
     List<Order> adaptorOrders;
@@ -43,14 +46,15 @@ public class OrderManagementAct extends AppCompatActivity {
 
         // Default Display Pending Orders
         adaptorOrders = new ArrayList<>();
-        updateOrders("Pending");
+        currentStatus = "Pending";
+        updateOrders();
 
         // Displaying
         adapter = new OrderManagementRecyclerViewAdaptor(adaptorOrders, OrderManagementAct.this, this);
         recyclerView.setAdapter(adapter);
     }
 
-    private void updateOrders(String status) {
+    private void updateOrders() {
         adaptorOrders.clear();
 
         // Getting Orders
@@ -63,7 +67,7 @@ public class OrderManagementAct extends AppCompatActivity {
 
 
         for(int i= 0; i < allOrders.size(); ++i) {
-            if(allOrders.get(i).Status.equals(status)) {
+            if(allOrders.get(i).Status.equals(currentStatus)) {
                 adaptorOrders.add(allOrders.get(i));
             }
         }
@@ -74,17 +78,24 @@ public class OrderManagementAct extends AppCompatActivity {
     }
 
     public void DisplayPendingOrder(View view) {
-        adapter.currentStatus = "Pending";
-        updateOrders("Pending");
+        currentStatus = "Pending";
+        updateOrders();
     }
 
     public void DisplayCompletedOrder(View view) {
-        adapter.currentStatus = "Completed";
-        updateOrders("Completed");
+        currentStatus = "Completed";
+        updateOrders();
     }
 
     public void DisplayDeliveredOrder(View view) {
-        adapter.currentStatus = "Delivered";
-        updateOrders("Delivered");
+        currentStatus = "Delivered";
+        updateOrders();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        updateOrders();
     }
 }

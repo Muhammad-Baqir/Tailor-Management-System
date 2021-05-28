@@ -20,7 +20,7 @@
 
 
             <EditText
-                android:id="@+id/editTextTextPersonName2"
+                android:id="@+id/customerRegistrationEditTextName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -29,7 +29,7 @@
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName3"
+                android:id="@+id/customerRegistrationEditTextPhoneNo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"
@@ -38,7 +38,7 @@
                 android:textAlignment="center" />
 
             <EditText
-                android:id="@+id/editTextTextPersonName4"
+                android:id="@+id/customerRegistrationEditTextAddress"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:ems="10"

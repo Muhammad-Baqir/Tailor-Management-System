@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.lang.reflect.InvocationTargetException;
 
@@ -91,7 +92,7 @@ public class OrderDetailsAct extends AppCompatActivity {
     public void UpdateOrder(View view) {
         int i = spinner.getSelectedItemPosition();
         Order.updateOrderStatus(orderId, status[i]);
-        // Go Back
+        Toast.makeText(this, "Customer Updated Successfully", Toast.LENGTH_SHORT).show();
         finish();
     }
 }
