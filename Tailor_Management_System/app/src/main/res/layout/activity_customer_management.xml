@@ -6,4 +6,43 @@
     android:layout_height="match_parent"
     tools:context=".CustomerManagementAct">
 
+    <TextView
+        android:id="@+id/customerManagementTextView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="@string/No"
+        app:layout_constraintEnd_toStartOf="@+id/customerManagementTextView2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/customerManagementTextView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Name"
+        app:layout_constraintEnd_toStartOf="@+id/customerManagementTextView3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/customerManagementTextView1"
+        app:layout_constraintTop_toTopOf="@+id/customerManagementTextView1" />
+
+    <TextView
+        android:id="@+id/customerManagementTextView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/PhoneNumber"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintTop_toTopOf="@+id/customerManagementTextView2" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/customerManagementRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        app:layout_constraintTop_toBottomOf="@+id/customerManagementTextView1"
+        tools:layout_editor_absoluteX="-14dp" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
