@@ -15,7 +15,7 @@ import java.util.List;
 
 public class OrderManagementAct extends AppCompatActivity {
     RecyclerView recyclerView;
-    RecyclerView.Adapter adapter = null;
+    OrderManagementRecyclerViewAdaptor adapter = null;
     RecyclerView.LayoutManager layoutManager;
 
     List<Order> allOrders;
@@ -27,7 +27,6 @@ public class OrderManagementAct extends AppCompatActivity {
         setContentView(R.layout.activity_order_management);
 
 
-        DBHelper dbHelper = new DBHelper(this);
         // Getting Orders
         try {
             allOrders = QueryHandler.getAll(Order.class);
@@ -54,6 +53,15 @@ public class OrderManagementAct extends AppCompatActivity {
     private void updateOrders(String status) {
         adaptorOrders.clear();
 
+        // Getting Orders
+        try {
+            allOrders = QueryHandler.getAll(Order.class);
+        } catch (Exception exception) {
+            Log.d("ExceptionLocation", "OrderManagementAct.java");
+            Log.d("ExceptionDetail", exception.getMessage());
+        }
+
+
         for(int i= 0; i < allOrders.size(); ++i) {
             if(allOrders.get(i).Status.equals(status)) {
                 adaptorOrders.add(allOrders.get(i));
@@ -66,14 +74,17 @@ public class OrderManagementAct extends AppCompatActivity {
     }
 
     public void DisplayPendingOrder(View view) {
+        adapter.currentStatus = "Pending";
         updateOrders("Pending");
     }
 
     public void DisplayCompletedOrder(View view) {
+        adapter.currentStatus = "Completed";
         updateOrders("Completed");
     }
 
     public void DisplayDeliveredOrder(View view) {
+        adapter.currentStatus = "Delivered";
         updateOrders("Delivered");
     }
 }

@@ -19,6 +19,7 @@ class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManag
     List<Order> orders;
     Activity mAct;
     Context context;
+    String currentStatus;
 
     public OrderManagementRecyclerViewAdaptor(List<Order> orders, Activity mAct, Context context) {
         this.orders = orders;
@@ -52,6 +53,31 @@ class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManag
         holder.textViewName.setText(customer.Name);
         holder.textViewDate.setText(order.Deadline);
     }
+
+    public void updateOrders() {
+        List<Order> allOrders = null;
+        // Getting Orders
+        try {
+            allOrders = QueryHandler.getAll(Order.class);
+        } catch (Exception exception) {
+            Log.d("ExceptionLocation", "OrderManagementAct.java");
+            Log.d("ExceptionDetail", exception.getMessage());
+        }
+
+
+        // Updating
+        orders.clear();
+
+        for(int i= 0; i < allOrders.size(); ++i) {
+            if(allOrders.get(i).Status.equals(currentStatus)) {
+                orders.add(allOrders.get(i));
+            }
+        }
+
+        // DataSetChanged
+        notifyDataSetChanged();
+    }
+
 
     @Override
     public int getItemCount() {
@@ -91,8 +117,10 @@ class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManag
                     intent.putExtra("CustomerId", customerId);
                     context.startActivity(intent);
 
+                    Log.d("ActivityFinished", "Yup");
+
                     // When Come back from activity, update 'orders'
-                    // ToDO
+                    updateOrders();
                 }
             });
 

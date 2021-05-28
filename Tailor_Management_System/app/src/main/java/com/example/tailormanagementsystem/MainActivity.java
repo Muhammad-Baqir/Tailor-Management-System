@@ -26,11 +26,11 @@ public class MainActivity extends AppCompatActivity {
         //
         ArrayList<Order> items = null;
         try {
-            String date = LocalDateTime.now().toLocalDate().toString();
-            QueryHandler.add(new Customer(0,"Baqir", "234342", "Male", "SDfdsf", "ssfd", 0));
-            QueryHandler.add(new Order(0, 1, 100, 0, date, date, "Delivered"));
-            QueryHandler.add(new Order(0, 1, 100, 0, date, date, "Completed"));
-            QueryHandler.add(new Order(0, 1, 100, 0, date, date, "Pending"));
+//            String date = LocalDateTime.now().toLocalDate().toString();
+//            QueryHandler.add(new Customer(0,"Baqir", "234342", "Male", "SDfdsf", "ssfd", 0));
+//            QueryHandler.add(new Order(0, 1, 100, 0, date, date, "Delivered"));
+//            QueryHandler.add(new Order(0, 1, 100, 0, date, date, "Completed"));
+//            QueryHandler.add(new Order(0, 1, 100, 0, date, date, "Pending"));
 
             items = QueryHandler.getAll(Order.class);
 
