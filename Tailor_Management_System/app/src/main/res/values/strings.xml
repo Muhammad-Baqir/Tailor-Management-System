@@ -7,9 +7,21 @@
     <string name="AboutUsButtonText">About Us</string>
     <string name="CustomerRegButtonText">Customer Registration</string>
     <string name="CustomerRegistrationTitle">Customer Registration</string>
-    <string name="PhoneNumberHint">Phone Number (e.g. 03461232122)</string>
+    <string name="PhoneNumberHint">Phone Number (e.g. +923461232122)</string>
     <string name="AddressHint">Address</string>
     <string name="NameHint">Name</string>
     <string name="RegisterButton">Register</string>
     <string name="Measurements">Measurements (Inch)</string>
+    <string-array name="numbers">
+        <item>0</item>
+        <item>1/2</item>
+        <item>1/4</item>
+        <item>3/4</item>
+    </string-array>
+    <string-array name="integer">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+    </string-array>
 </resources>
