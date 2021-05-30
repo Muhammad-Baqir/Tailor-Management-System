@@ -29,6 +29,8 @@ public class QueryHandler {
         return writeableDB;
     }
 
+    static public SQLiteDatabase getReadableDB() {return readableDB;}
+
     static public <T extends Table> T get(Class<T> c, int id) throws InstantiationException, IllegalAccessException, NoSuchFieldException, NoSuchMethodException, InvocationTargetException {
         T result = null;
         String[] COLUMNS_NAME = (String[]) c.getDeclaredField("COLUMNS_NAME").get(null);

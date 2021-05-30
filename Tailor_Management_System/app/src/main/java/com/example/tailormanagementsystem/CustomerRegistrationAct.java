@@ -52,10 +52,8 @@ public class CustomerRegistrationAct extends AppCompatActivity {
     }
 
     private void addMeasurementsViews() {
-        DBHelper dbHelper = new DBHelper(this);
-
         // First Pair Item => MeasurementName, Second Pair Item => MeasurementType
-        measurements = dbHelper.getMeasurementsTableColumns();
+        measurements = DBHelper.getMeasurementsTableColumns();
 
         for(int i = 2 ; i < measurements.size(); ++i) {
             // Getting Current Measurement Name&Type
@@ -64,7 +62,7 @@ public class CustomerRegistrationAct extends AppCompatActivity {
 
             if(measurementType.equals("Text")) {
                 // Add RadioGroupView
-                String radioButtonNames = dbHelper.getRadioButtonNames(measurementName);
+                String radioButtonNames = DBHelper.getRadioButtonNames(measurementName);
                 // Splitting RadioButton Names
                 String[] names  = radioButtonNames.split("_");
 
@@ -201,8 +199,10 @@ public class CustomerRegistrationAct extends AppCompatActivity {
         }
 
         // Add into Database
-        DBHelper.addNewMeasurement(customerId, measurementsValue);
-
-        Toast.makeText(this, "Customer Registered Successfully", Toast.LENGTH_LONG).show();
+        if(DBHelper.addNewMeasurement(customerId, measurementsValue)) {
+            Toast.makeText(this, "Customer Registered Successfully", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Customer Not Registered", Toast.LENGTH_LONG).show();
+        }
     }
 }

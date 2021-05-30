@@ -77,10 +77,10 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("ALTER TABLE MeasurementsTable ADD COLUMN " + columnName + " " + columnType);
     }
 
-    public String getRadioButtonNames(String measurementName) {
+    static public String getRadioButtonNames(String measurementName) {
         String result = "";
 
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = QueryHandler.getReadableDB();
 
         Cursor cursor = db.rawQuery("SELECT MeasurementsOptions  FROM CheckBoxTable WHERE MeasurementName = ?", new String[]{measurementName});
 
@@ -91,10 +91,10 @@ public class DBHelper extends SQLiteOpenHelper {
         return result;
     }
 
-    public ArrayList<Pair<String, String>> getMeasurementsTableColumns() {
+    static public ArrayList<Pair<String, String>> getMeasurementsTableColumns() {
         ArrayList<Pair<String, String>> columns = new ArrayList<Pair<String, String>>();
 
-        SQLiteDatabase db = this.getReadableDatabase();
+        SQLiteDatabase db = QueryHandler.getReadableDB();
 
         Cursor cursor = db.rawQuery("PRAGMA table_info(MeasurementsTable)", null);
 
@@ -107,11 +107,18 @@ public class DBHelper extends SQLiteOpenHelper {
         return columns;
     }
 
-    static public void addNewMeasurement(Integer customerId, List<String> measurements) {
-//        SQLiteDatabase db = QueryHandler.getWriteableDB();
+    static public boolean addNewMeasurement(Integer customerId, List<String> measurements) {
+        SQLiteDatabase db = QueryHandler.getWriteableDB();
 
+        ContentValues cv = new ContentValues();
+        cv.put("CustomerId", customerId);
 
-//        db.insert("TableName", new ContentValues(), );
+        ArrayList<Pair<String, String>> columnsName = getMeasurementsTableColumns();
+        for(int i = 2; i < columnsName.size(); ++i) {
+            cv.put(columnsName.get(i).first, measurements.get(i - 2));
+        }
+
+        return db.insert("MeasurementsTable", null,cv) != -1;
     }
 
 }
