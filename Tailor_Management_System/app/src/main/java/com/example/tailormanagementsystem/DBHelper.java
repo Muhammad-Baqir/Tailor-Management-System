@@ -38,7 +38,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         // OrderItemTable
         //String orderItemTable = "CREATE TABLE OrderItemTable (OrderId Integer, ItemId Integer, Quantity Integer, FOREIGN KEY (OrderId) REFERENCES OrderTable (Id), FOREIGN KEY (ItemId) REFERENCES ItemTable (Id))";
-        String orderItemTable = String.format("CREATE TABLE %s (%s Integer, %s Integer, %s Integer, FOREIGN KEY (%s) REFERENCES %s (%s),FOREIGN KEY (%s) REFERENCES %s (%s))", OrderItem.COLUMNS_NAME[0], OrderItem.COLUMNS_NAME[2], OrderItem.COLUMNS_NAME[3], OrderItem.COLUMNS_NAME[4], OrderItem.COLUMNS_NAME[2],Order.COLUMNS_NAME[0],Order.COLUMNS_NAME[1],OrderItem.COLUMNS_NAME[3],Item.COLUMNS_NAME[0], Item.COLUMNS_NAME[1]);
+        String orderItemTable = String.format("CREATE TABLE %s (%s Integer, %s Integer, %s Integer, %s Integer, FOREIGN KEY (%s) REFERENCES %s (%s),FOREIGN KEY (%s) REFERENCES %s (%s))", OrderItem.COLUMNS_NAME[0], OrderItem.COLUMNS_NAME[1], OrderItem.COLUMNS_NAME[2], OrderItem.COLUMNS_NAME[3], OrderItem.COLUMNS_NAME[4], OrderItem.COLUMNS_NAME[2],Order.COLUMNS_NAME[0],Order.COLUMNS_NAME[1],OrderItem.COLUMNS_NAME[3],Item.COLUMNS_NAME[0], Item.COLUMNS_NAME[1]);
         db.execSQL(orderItemTable);
 
         // ReceiptTable
@@ -60,6 +60,10 @@ public class DBHelper extends SQLiteOpenHelper {
         String insertCheckBoxSql = "INSERT INTO CheckBoxTable (MeasurementName, MeasurementsOptions) Values ('Type_of_Ghera', 'Goal_Choros'), ('Salaai_Type', 'Single_Double_Triple')";
        // String orderQuery = String.format("CREATE TABLE %s (%s Integer PRIMARY KEY AUTOINCREMENT, %s Integer, %s Integer, %s Integer,%s Date, %s Date, %s Text, FOREIGN KEY (%s) REFERENCES %s (%s))", Order.COLUMNS_NAME[0], Order.COLUMNS_NAME[1], Order.COLUMNS_NAME[2], Order.COLUMNS_NAME[3], Order.COLUMNS_NAME[4], Order.COLUMNS_NAME[5], Order.COLUMNS_NAME[6], Order.COLUMNS_NAME[7],Order.COLUMNS_NAME[2],Customer.COLUMNS_NAME[0],Customer.COLUMNS_NAME[1]);
         db.execSQL(insertCheckBoxSql);
+
+        // Inserting Item
+        String insertItemSql = "INSERT INTO " + Item.COLUMNS_NAME[0] + " (" + Item.COLUMNS_NAME[2] + ", " + Item.COLUMNS_NAME[3] + ")  Values ('Shalwar Kameez', 500), ('Pent Coat', 1000), ('Safari Suit', 1500)";
+        db.execSQL(insertItemSql);
     }
 
     @Override

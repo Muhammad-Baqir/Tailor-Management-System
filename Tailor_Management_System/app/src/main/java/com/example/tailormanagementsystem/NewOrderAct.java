@@ -1,9 +1,11 @@
 package com.example.tailormanagementsystem;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -37,8 +39,17 @@ public class NewOrderAct extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
 
         // Displaying
-        adapter = new CustomerManagementRecyclerViewAdaptor(customers, NewOrderAct.this);
+        adapter = new NewOrderRecyclerViewAdaptor(customers,this);
         recyclerView.setAdapter(adapter);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        // Come Back from NewOrderDetailsAct
+        // Finish The Activity
+        finish();
     }
 
 }

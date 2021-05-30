@@ -1,6 +1,7 @@
 package com.example.tailormanagementsystem;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,18 +16,18 @@ import java.util.List;
 public class NewOrderRecyclerViewAdaptor extends RecyclerView.Adapter<NewOrderRecyclerViewAdaptor.MyViewHolder> {
 
     List<Customer> customers;
-    Activity mAct;
+    NewOrderAct context;
 
-    public NewOrderRecyclerViewAdaptor(List<Customer> customers, Activity mAct) {
+    public NewOrderRecyclerViewAdaptor(List<Customer> customers, NewOrderAct context) {
         this.customers = customers;
-        this.mAct = mAct;
+        this.context = context;
     }
 
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_order_managment_recycler_view, parent, false);
+                .inflate(R.layout.layout_new_order_recycler_view, parent, false);
         return new MyViewHolder(itemView);
     }
 
@@ -54,6 +55,26 @@ public class NewOrderRecyclerViewAdaptor extends RecyclerView.Adapter<NewOrderRe
             textViewCustomerId = itemView.findViewById(R.id.newOrderTextViewCustomerId);
             textViewCustomerName = itemView.findViewById(R.id.newOrderTextViewCustomerName);
             textViewCustomerAddress = itemView.findViewById(R.id.newOrderTextViewCustomerAddress);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Getting OrderId Text View & CustomerId TextView
+                    TextView textView1 = v.findViewById(R.id.newOrderTextViewCustomerId);
+
+                    // Getting Order Id
+                    Integer customerId = Integer.parseInt(textView1.getText().toString());
+
+                    // Displaying Id
+                    Log.d("ItemClicked", Integer.toString(customerId));
+
+                    // New Activity
+                    Intent intent = new Intent(context, NewOrderDetailsAct.class);
+                    intent.putExtra("CustomerId", customerId);
+
+                    context.startActivityForResult(intent, 1);
+                }
+            });
         }
     }
 }

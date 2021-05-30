@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.List;
 
 public class OrderDetailsAct extends AppCompatActivity {
     Integer orderId;
@@ -45,9 +46,11 @@ public class OrderDetailsAct extends AppCompatActivity {
         // Getting Data From Database
         Order order = null;
         Customer customer = null;
+        List<OrderItem> orderItemList = null;
         try {
             order = QueryHandler.get(Order.class, orderId);
             customer = QueryHandler.get(Customer.class, customerId);
+            orderItemList = QueryHandler.getAll(OrderItem.class);
         } catch (Exception exception) {
             Log.d("ExceptionLocation", "OrderDetailsAct.java");
             Log.d("ExceptionDetail", exception.getMessage());
@@ -87,6 +90,12 @@ public class OrderDetailsAct extends AppCompatActivity {
 
         // Setting Spinner Value
         spinner.setSelection(selection);
+
+        // Calculating Order Items
+        for(int i = 0; i < orderItemList.size(); ++i) {
+            // ToDO
+        }
+
     }
 
     public void UpdateOrder(View view) {

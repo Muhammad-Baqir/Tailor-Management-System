@@ -16,12 +16,10 @@ import java.util.List;
 
 class OrderManagementRecyclerViewAdaptor extends RecyclerView.Adapter<OrderManagementRecyclerViewAdaptor.MyViewHolder> {
     List<Order> orders;
-    Activity mAct;
     OrderManagementAct context;
 
-    public OrderManagementRecyclerViewAdaptor(List<Order> orders, Activity mAct, OrderManagementAct context) {
+    public OrderManagementRecyclerViewAdaptor(List<Order> orders, OrderManagementAct context) {
         this.orders = orders;
-        this.mAct = mAct;
         this.context = context;
     }
 

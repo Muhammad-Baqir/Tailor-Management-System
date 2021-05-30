@@ -50,7 +50,7 @@ public class OrderManagementAct extends AppCompatActivity {
         updateOrders();
 
         // Displaying
-        adapter = new OrderManagementRecyclerViewAdaptor(adaptorOrders, OrderManagementAct.this, this);
+        adapter = new OrderManagementRecyclerViewAdaptor(adaptorOrders,  this);
         recyclerView.setAdapter(adapter);
     }
 

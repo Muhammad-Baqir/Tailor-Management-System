@@ -49,6 +49,7 @@ public class CustomerRegistrationAct extends AppCompatActivity {
         editTextAddress = findViewById(R.id.customerRegistrationEditTextAddress);
         editTextEmail = findViewById(R.id.customerRegistrationEditTextEmail);
         radioGroupGender = findViewById(R.id.customerRegistrationRadioButtonGender);
+
     }
 
     private void addMeasurementsViews() {
