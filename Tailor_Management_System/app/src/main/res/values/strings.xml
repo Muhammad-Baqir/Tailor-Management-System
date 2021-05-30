@@ -34,6 +34,8 @@
     <string name="Female">Female</string>
     <string name="PhoneNumber">Phone Number</string>
     <string name="EmailHint">Email</string>
+    <string name="Submit">Submit</string>
+    <string name="CurrentDate">Current Date</string>
     <string-array name="spinner_values_real">
         <item>0</item>
         <item>1/2</item>

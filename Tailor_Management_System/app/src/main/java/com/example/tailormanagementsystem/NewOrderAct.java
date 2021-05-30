@@ -6,12 +6,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomerManagementAct extends AppCompatActivity {
+public class NewOrderAct extends AppCompatActivity {
     RecyclerView recyclerView;
     RecyclerView.Adapter adapter = null;
     RecyclerView.LayoutManager layoutManager;
@@ -21,25 +20,24 @@ public class CustomerManagementAct extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_customer_management);
+        setContentView(R.layout.activity_new_order);
 
         // Getting Customers
         try {
             customers = QueryHandler.getAll(Customer.class);
         } catch (Exception exception) {
-            Log.d("ExceptionLocation", "CustomerManagementAct.java");
+            Log.d("ExceptionLocation", "NewOrderAct.java");
             Log.d("ExceptionDetail", exception.getMessage());
         }
 
-        recyclerView = findViewById(R.id.customerManagementRecyclerView);
+        recyclerView = findViewById(R.id.newOrderRecyclerView);
 
         // Set Layout Manager
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
         // Displaying
-        adapter = new CustomerManagementRecyclerViewAdaptor(customers, CustomerManagementAct.this);
+        adapter = new CustomerManagementRecyclerViewAdaptor(customers, NewOrderAct.this);
         recyclerView.setAdapter(adapter);
     }
-
 }

@@ -1,6 +1,7 @@
 package com.example.tailormanagementsystem;
 
 import android.app.Activity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,12 +12,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-class CustomerManagementRecyclerViewAdaptor extends RecyclerView.Adapter<CustomerManagementRecyclerViewAdaptor.MyViewHolder> {
+public class NewOrderRecyclerViewAdaptor extends RecyclerView.Adapter<NewOrderRecyclerViewAdaptor.MyViewHolder> {
 
     List<Customer> customers;
     Activity mAct;
 
-    public CustomerManagementRecyclerViewAdaptor(List<Customer> customers, Activity mAct) {
+    public NewOrderRecyclerViewAdaptor(List<Customer> customers, Activity mAct) {
         this.customers = customers;
         this.mAct = mAct;
     }
@@ -25,7 +26,7 @@ class CustomerManagementRecyclerViewAdaptor extends RecyclerView.Adapter<Custome
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View itemView = LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.layout_customer_management_recycler_view, parent, false);
+                .inflate(R.layout.layout_order_managment_recycler_view, parent, false);
         return new MyViewHolder(itemView);
     }
 
@@ -33,9 +34,9 @@ class CustomerManagementRecyclerViewAdaptor extends RecyclerView.Adapter<Custome
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
         Customer customer = customers.get(position);
 
-        holder.textViewId.setText(customer.Id.toString());
+        holder.textViewCustomerId.setText(customer.Id.toString());
         holder.textViewCustomerName.setText(customer.Name);
-        holder.textViewCustomerPhoneNumber.setText(customer.PhoneNumber);
+        holder.textViewCustomerAddress.setText(customer.Address);
     }
 
     @Override
@@ -44,16 +45,18 @@ class CustomerManagementRecyclerViewAdaptor extends RecyclerView.Adapter<Custome
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView textViewId;
+        TextView textViewCustomerId;
         TextView textViewCustomerName;
-        TextView textViewCustomerPhoneNumber;
+        TextView textViewCustomerAddress;
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            textViewId = itemView.findViewById(R.id.customerManagementRecyclerViewLayoutTextViewCustomerNo);
-            textViewCustomerName = itemView.findViewById(R.id.customerManagementRecyclerViewLayoutTextViewName);
-            textViewCustomerPhoneNumber= itemView.findViewById(R.id.customerManagementRecyclerViewLayoutTextViewPhoneNumber);
+            textViewCustomerId = itemView.findViewById(R.id.newOrderTextViewCustomerId);
+            textViewCustomerName = itemView.findViewById(R.id.newOrderTextViewCustomerName);
+            textViewCustomerAddress = itemView.findViewById(R.id.newOrderTextViewCustomerAddress);
         }
+
+
+
     }
 }
-
