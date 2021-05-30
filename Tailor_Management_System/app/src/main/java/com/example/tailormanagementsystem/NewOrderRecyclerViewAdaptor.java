@@ -55,8 +55,5 @@ public class NewOrderRecyclerViewAdaptor extends RecyclerView.Adapter<NewOrderRe
             textViewCustomerName = itemView.findViewById(R.id.newOrderTextViewCustomerName);
             textViewCustomerAddress = itemView.findViewById(R.id.newOrderTextViewCustomerAddress);
         }
-
-
-
     }
 }

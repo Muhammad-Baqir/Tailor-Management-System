@@ -40,4 +40,5 @@ public class NewOrderAct extends AppCompatActivity {
         adapter = new CustomerManagementRecyclerViewAdaptor(customers, NewOrderAct.this);
         recyclerView.setAdapter(adapter);
     }
+
 }
