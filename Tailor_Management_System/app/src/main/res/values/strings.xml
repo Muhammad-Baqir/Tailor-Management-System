@@ -16,6 +16,11 @@
     <string name="Pending">Pending</string>
     <string name="Completed">Completed</string>
     <string name="Delivered">Delivered</string>
+    <string name="Daily">Daily</string>
+    <string name="Monthly">Monthly</string>
+    <string name="Yearly">Yearly</string>
+    <string name="PaymentDate">Payment Date</string>
+    <string name="Amount">Amount</string>
     <string name="OrderId">Order Id</string>
     <string name="No">No.</string>
     <string name="Name">Name</string>

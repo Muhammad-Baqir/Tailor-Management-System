@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/paymentSummaryRecyclerViewLayoutTextViewId"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/paymentSummaryRecyclerViewLayoutTextViewCustomerName"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/paymentSummaryRecyclerViewLayoutTextViewCustomerName" />
+
+    <TextView
+        android:id="@+id/paymentSummaryRecyclerViewLayoutTextViewCustomerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/paymentSummaryRecyclerViewLayoutTextViewPDate"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/paymentSummaryRecyclerViewLayoutTextViewId"
+        app:layout_constraintTop_toTopOf="@+id/paymentSummaryRecyclerViewLayoutTextViewPDate" />
+
+    <TextView
+        android:id="@+id/paymentSummaryRecyclerViewLayoutTextViewPDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintEnd_toStartOf="@+id/paymentSummaryRecyclerViewLayoutTextViewBill"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/paymentSummaryRecyclerViewLayoutTextViewCustomerName"
+        app:layout_constraintTop_toTopOf="@+id/paymentSummaryRecyclerViewLayoutTextViewBill" />
+
+    <TextView
+        android:id="@+id/paymentSummaryRecyclerViewLayoutTextViewBill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:text="TextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/paymentSummaryRecyclerViewLayoutTextViewPDate"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@android:color/darker_gray"
+        app:layout_constraintBottom_toBottomOf="@+id/paymentSummaryRecyclerViewLayoutTextViewCustomerName"
+        app:layout_constraintTop_toBottomOf="@+id/paymentSummaryRecyclerViewLayoutTextViewId" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
