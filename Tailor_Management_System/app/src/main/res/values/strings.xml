@@ -5,6 +5,7 @@
     <string name="OrderManagementButtonText">Order Management</string>
     <string name="PaymentSummaryButtonText">Payment Summary</string>
     <string name="AboutUsButtonText">About Us</string>
+    <string name="ItemManagementButtonText">Item Management</string>
     <string name="CustomerRegButtonText">Customer Registration</string>
     <string name="CustomerRegistrationTitle">Customer Registration</string>
     <string name="PhoneNumberHint">Phone Number (e.g. 03461232122)</string>

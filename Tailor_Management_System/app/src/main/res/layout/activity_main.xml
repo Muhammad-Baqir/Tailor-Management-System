@@ -80,10 +80,11 @@
     <Button
         android:id="@+id/button6"
         android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:layout_height="wrap_content"
-        android:text="@string/AboutUsButtonText"
+        android:text="@string/ItemManagementButtonText"
+        android:onClick="ItemManagement"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

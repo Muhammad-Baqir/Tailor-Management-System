@@ -84,7 +84,7 @@
                 android:textAlignment="center" />
 
             <LinearLayout
-                android:id="@+id/linearLayout"
+                android:id="@+id/customerManagementLinearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"></LinearLayout>
