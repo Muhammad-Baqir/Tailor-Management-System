@@ -29,6 +29,7 @@ public class PaymentSummaryAct extends AppCompatActivity {
     PaymentSummaryRecyclerViewAdapter adapter = null;
     RecyclerView.LayoutManager layoutManager;
     String currentStatus;
+
     List<Receipt> allReceipts;
     List<Receipt> adaptorReceipts;
 
@@ -43,7 +44,7 @@ public class PaymentSummaryAct extends AppCompatActivity {
         try {
             allReceipts = QueryHandler.getAll(Receipt.class);
         } catch (Exception exception) {
-            Log.d("ExceptionLocation", "PaymentSummaryAct.java");
+            Log.d("ExceptionLocation", "PaymentSummaryAct.java, onCreate");
             Log.d("ExceptionDetail", exception.getMessage());
         }
 
@@ -71,7 +72,7 @@ public class PaymentSummaryAct extends AppCompatActivity {
         try {
             allReceipts = QueryHandler.getAll(Receipt.class);
         } catch (Exception exception) {
-            Log.d("ExceptionLocation", "PaymentSummaryAct.java");
+            Log.d("ExceptionLocation", "PaymentSummaryAct.java, updateReceipts");
             Log.d("ExceptionDetail", exception.getMessage());
         }
 
@@ -88,17 +89,19 @@ public class PaymentSummaryAct extends AppCompatActivity {
             {
                 for(int i= 0; i < allReceipts.size(); ++i) {
                     try {
-                        SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                         Date date = format.parse(allReceipts.get(i).PaymentDate);
-                        Integer paymentMonth=Integer.parseInt((String) DateFormat.format("dd",   date));
-                        date=format.parse(LocalDateTime.now().toLocalDate().toString());
-                        Integer currentMonth=Integer.parseInt((String) DateFormat.format("dd",   date));
+                        // Finding Current + Payment Month
+                        Integer paymentMonth = Integer.parseInt((String) DateFormat.format("MM",   date));
+                        date = format.parse(LocalDateTime.now().toLocalDate().toString());
+                        Integer currentMonth = Integer.parseInt((String) DateFormat.format("MM",   date));
+
                         if(paymentMonth.equals(currentMonth))
                         {
                             adaptorReceipts.add(allReceipts.get(i));
                         }
                     }catch (Exception exception) {
-                        Log.d("ExceptionLocation", "PaymentSummaryAct.java");
+                        Log.d("ExceptionLocation", "PaymentSummaryAct.java, updateReceipts");
                         Log.d("ExceptionDetail", exception.getMessage());
                     }
 
@@ -109,17 +112,19 @@ public class PaymentSummaryAct extends AppCompatActivity {
                 {
                     for(int i= 0; i < allReceipts.size(); ++i) {
                         try {
-                            SimpleDateFormat format = new SimpleDateFormat("dd-MM-yyyy");
+                            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
                             Date date = format.parse(allReceipts.get(i).PaymentDate);
+                            // Finding Current and Payment Year
                             Integer paymentYear=Integer.parseInt((String) DateFormat.format("yyyy",   date));
                             date=format.parse(LocalDateTime.now().toLocalDate().toString());
                             Integer currentYear=Integer.parseInt((String) DateFormat.format("yyyy",   date));
+
                             if(paymentYear.equals(currentYear))
                             {
                                 adaptorReceipts.add(allReceipts.get(i));
                             }
                         } catch (Exception exception) {
-                            Log.d("ExceptionLocation", "PaymentSummaryAct.java");
+                            Log.d("ExceptionLocation", "PaymentSummaryAct.java, updateReceipts");
                             Log.d("ExceptionDetail", exception.getMessage());
                         }
 

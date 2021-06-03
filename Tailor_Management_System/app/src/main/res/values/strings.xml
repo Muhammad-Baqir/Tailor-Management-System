@@ -3,7 +3,7 @@
     <string name="AddNewOrderButtonText">Add New Order</string>
     <string name="AllCustomersButtonText">Customer Management</string>
     <string name="OrderManagementButtonText">Order Management</string>
-    <string name="OrderSummaryButtonText">Order Summary</string>
+    <string name="PaymentSummaryButtonText">Payment Summary</string>
     <string name="AboutUsButtonText">About Us</string>
     <string name="CustomerRegButtonText">Customer Registration</string>
     <string name="CustomerRegistrationTitle">Customer Registration</string>

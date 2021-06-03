@@ -34,25 +34,19 @@ class PaymentSummaryRecyclerViewAdapter extends RecyclerView.Adapter<PaymentSumm
 
         holder.textViewId.setText(receipt.Id.toString());
         holder.textViewDate.setText(receipt.PaymentDate);
-        holder.textViewAmount.setText(receipt.Amount);
+        holder.textViewAmount.setText(receipt.Amount.toString());
 
-        // Getting Order Info
+        // Getting Order&Customer Info
         Order order = null;
-        try {
-            order = QueryHandler.get(Order.class, receipt.OrderID);
-        } catch (Exception exception) {
-            Log.d("ExceptionLocation", "PaymentSummaryRecyclerViewAdaptor.java");
-            Log.d("ExceptionDetail", exception.getMessage());
-        }
-
-        // Getting Customer Info
         Customer customer = null;
         try {
+            order = QueryHandler.get(Order.class, receipt.OrderID);
             customer = QueryHandler.get(Customer.class, order.CustomerId);
         } catch (Exception exception) {
             Log.d("ExceptionLocation", "PaymentSummaryRecyclerViewAdaptor.java");
             Log.d("ExceptionDetail", exception.getMessage());
         }
+
         holder.textViewCustomerName.setText(customer.Name);
     }
 
@@ -85,16 +79,9 @@ class PaymentSummaryRecyclerViewAdapter extends RecyclerView.Adapter<PaymentSumm
 
                     // Getting Order Id
                     Integer orderId=0;
-                    try {
-                        orderId = QueryHandler.get(Receipt.class, paymentId).OrderID;
-                    } catch (Exception exception) {
-                        Log.d("ExceptionLocation", "PaymentSummaryRecyclerViewAdaptor.java");
-                        Log.d("ExceptionDetail", exception.getMessage());
-                    }
-
-                    // Getting Customer Id
                     Integer customerId=0;
                     try {
+                        orderId = QueryHandler.get(Receipt.class, paymentId).OrderID;
                         customerId = QueryHandler.get(Order.class, orderId).CustomerId;
                     } catch (Exception exception) {
                         Log.d("ExceptionLocation", "PaymentSummaryRecyclerViewAdaptor.java");
@@ -112,7 +99,6 @@ class PaymentSummaryRecyclerViewAdapter extends RecyclerView.Adapter<PaymentSumm
                     context.startActivityForResult(intent, 1);
                 }
             });
-
         }
     }
 }

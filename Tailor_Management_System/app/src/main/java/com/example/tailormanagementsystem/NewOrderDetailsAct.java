@@ -179,7 +179,7 @@ public class NewOrderDetailsAct extends AppCompatActivity {
 
             // Checking for AdvancePayment
             if(advancePayment > 0) {
-                QueryHandler.add(new Receipt(0, orderId, LocalDateTime.now().toString(), advancePayment));
+                QueryHandler.add(new Receipt(0, orderId, LocalDateTime.now().toLocalDate().toString(), advancePayment));
             }
 
             Toast.makeText(this, "New Order Added Successfully", Toast.LENGTH_SHORT);

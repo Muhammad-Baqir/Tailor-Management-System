@@ -69,4 +69,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent = new Intent(this, NewOrderAct.class);
         startActivity(intent);
     }
+
+    // Order Summary
+    public void OrderSummary(View view) {
+        Intent intent = new Intent(this, PaymentSummaryAct.class);
+        startActivity(intent);
+    }
 }

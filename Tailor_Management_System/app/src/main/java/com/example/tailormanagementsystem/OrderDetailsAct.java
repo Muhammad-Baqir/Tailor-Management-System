@@ -102,6 +102,11 @@ public class OrderDetailsAct extends AppCompatActivity {
         int i = spinner.getSelectedItemPosition();
         Order.updateOrderStatus(orderId, status[i]);
         Toast.makeText(this, "Customer Updated Successfully", Toast.LENGTH_SHORT).show();
+
+        // ToDO
+        // Payment
+        // QueryHandler.add(new Receipt(0, orderId, LocalDateTime.now().toString(), totalPayment));
+
         finish();
     }
 }
