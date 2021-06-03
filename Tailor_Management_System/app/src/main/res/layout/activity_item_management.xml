@@ -27,6 +27,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/itemManagementEditName"
                 android:layout_width="0dp"
                 android:textAlignment="center"
                 android:hint="Item Name"
@@ -34,6 +35,7 @@
                 android:layout_weight="1"/>
 
             <EditText
+                android:id="@+id/itemManagementEditCost"
                 android:textAlignment="center"
                 android:hint="Item Price"
                 android:layout_width="0dp"
@@ -45,11 +47,14 @@
         <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onClick="RegisterItem"
             android:text="Add Item"/>
+
 
 
         <!-- List of Items -->
         <LinearLayout
+            android:id="@+id/itemManagementLinearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" />
