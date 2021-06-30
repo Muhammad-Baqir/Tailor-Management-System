@@ -1,9 +1,8 @@
 package com.example.tailormanagementsystem;
 
-import android.content.ContentValues;
 import android.database.Cursor;
 
-import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 
 public class Customer extends Table {
     static public final String[] COLUMNS_NAME = new String[] {"CustomerTable", "Id", "Name", "PhoneNumber", "Gender", "Address", "Email", "RelatedCustomerId"};
@@ -90,4 +89,5 @@ public class Customer extends Table {
     public void setRelatedCustomerId(Integer relatedCustomerId) {
         RelatedCustomerId = relatedCustomerId;
     }
+
 }

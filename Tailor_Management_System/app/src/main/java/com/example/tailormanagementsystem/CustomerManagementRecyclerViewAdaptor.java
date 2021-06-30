@@ -1,6 +1,8 @@
 package com.example.tailormanagementsystem;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,7 +55,29 @@ class CustomerManagementRecyclerViewAdaptor extends RecyclerView.Adapter<Custome
             textViewId = itemView.findViewById(R.id.customerManagementRecyclerViewLayoutTextViewCustomerNo);
             textViewCustomerName = itemView.findViewById(R.id.customerManagementRecyclerViewLayoutTextViewName);
             textViewCustomerPhoneNumber= itemView.findViewById(R.id.customerManagementRecyclerViewLayoutTextViewPhoneNumber);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // Getting CustomerId TextView
+                    TextView textView1 = v.findViewById(R.id.customerManagementRecyclerViewLayoutTextViewCustomerNo);
+
+                    // Getting Customer Id
+                    Integer customerId = Integer.parseInt(textView1.getText().toString());
+
+                    // Displaying Id
+                    Log.d("ItemClicked", Integer.toString(customerId));
+
+                    // New Activity
+                    Intent intent = new Intent(mAct, CustomerDetailsAct.class);
+                    intent.putExtra("CustomerId", customerId);
+
+                    mAct.startActivityForResult(intent, 1);
+                }
+            });
         }
     }
+
+
 }
 
