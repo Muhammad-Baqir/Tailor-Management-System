@@ -9,11 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TailorManagementSystem">
-<<<<<<< Updated upstream
+
         <activity android:name=".ItemManagementAct"></activity>
-=======
         <activity android:name=".CustomerDetailsAct"></activity>
->>>>>>> Stashed changes
         <activity android:name=".PaymentSummaryAct" />
         <activity android:name=".PaymentSummaryRecyclerViewAdapter" />
         <activity android:name=".NewOrderDetailsAct" />
